@@ -2,41 +2,43 @@ export const PORTFOLIO_DATA = {
   hero: {
     name: 'TRẦN VĂN DŨNG',
     slogan: 'make everything looks interesting',
-    roles: ['PHOTOGRAPHER', 'EDITOR'],
-    age: '23 y.o',
-    software: ['Pr', 'Ae', 'Ps', 'Lr'],
+    roles: ['VIDEO EDITOR', 'THẨM MỸ & FITNESS'],
+    age: '4+ năm KN',
+    software: ['Ps', 'Ai', 'Lr', 'Pr', 'Ae', 'Capcut'],
     avatar: '/avatar.png',
   },
   about: {
-    greeting: 'Xin chào nhà tuyển dụng mình là Dũng. Học tập và làm việc ở Hà Nội.',
+    greeting: 'Xin chào nhà tuyển dụng và đối tác.',
     description:
-      'Tôi là một editor có kinh nghiệm, đã hoạt động trong lĩnh vực này được 2 năm và 1 năm để thực hiện chụp ảnh. Về ánh sáng, màu sắc và bố cục cho phép tôi tạo ra những sản phẩm độc đáo. Tôi luôn cập nhật và nắm bắt các xu hướng mới nhất trong lĩnh vực video trên mạng xã hội. Tôi luôn nỗ lực học hỏi để mang đến sự mới mẻ và độc đáo cho mỗi dự án.\n\nCảm ơn bạn đã dành thời gian để tìm hiểu về tôi. Tôi hy vọng có cơ hội được hợp tác và chia sẻ sự sáng tạo của mình trong tương lai.',
-    hobbies:
-      'Tôi yêu thích cảm giác tự do khi chạy bộ hoặc tập gym. Đi du lịch cũng là một phần quan trọng trong cuộc sống của tôi, tôi luôn háo hức khám phá những địa điểm mới và trải nghiệm văn hóa đa dạng trên thế giới. Âm nhạc và phim ảnh luôn là nguồn cảm hứng lớn cho tôi. Một phần không thể thiếu trong cuộc sống của tôi là gặp gỡ và kết nối với mọi người. Tôi thích trò chuyện và chia sẻ ý kiến với những người có cùng sở thích hoặc quan điểm.',
-    achievements: [
-      'GIẢI 3: THIẾT KẾ POSTER VỀ CHỦ ĐỀ COVID Ở TRƯỜNG',
-      'GIẢI CỐNG HIẾN: EMS FITNESS & YOGA',
-    ],
+      'Tôi là một Video Editor với 4 năm kinh nghiệm, theo đuổi storytelling điện ảnh, nơi mỗi khung hình, nhịp dựng và âm thanh hòa quyện để dẫn dắt cảm xúc và tạo nên những trải nghiệm thị giác giàu chiều sâu. Tôi đặc biệt có thế mạnh trong việc sản xuất nội dung video cho lĩnh vực Thẩm mỹ và Fitness, nơi hình ảnh không chỉ đẹp mà còn phải truyền tải được cảm xúc và giá trị.',
+    hobbies: '',
+    achievements: [],
   },
   experience: [
     {
-      year: '2020',
-      company: 'BASKINROBBINS HÀ ĐÔNG',
+      year: 'T3 – T9/2020',
+      company: 'BASKIN ROBBINS HÀ ĐÔNG',
       role: 'NHÂN VIÊN THIẾT KẾ',
       description: '',
     },
     {
-      year: '2020 - 2021',
+      year: 'T9/2020 – 2021',
       company: 'CÔNG TY CP TRÍ TUỆ NHÂN TẠO THIÊN HÀ',
-      role: 'THỰC TẬP SINH (ANIMATION VÀ VOICE)',
+      role: 'THỰC TẬP SINH ANIMATION',
       description: '',
     },
     {
-      year: '2022 - 2024',
-      company: 'EMS FITNESS & YOGA - HỆ THỐNG TTTT CAO CẤP',
-      role: 'THIẾT KẾ CÁC POST FB, ẤN PHẨM. EDIT VIDEO CHÍNH CỦA TEAM',
+      year: '2022 – 2024',
+      company: 'EMS FITNESS & YOGA – HỆ THỐNG TTTH CAO CẤP',
+      role: 'THIẾT KẾ POST FB, ẤN PHẨM, EDIT VIDEO CHÍNH CỦA TEAM',
       description:
-        'SẢN XUẤT HIỆU ỨNG. CÓ THAM GIA ĐI QUAY CHỤP CÙNG VỚI ĐỘI MEDIA.',
+        'Sản xuất hiệu ứng; có tham gia đi quay chụp cùng team media.',
+    },
+    {
+      year: '2024 – 2026',
+      company: 'THẨM MỸ TRUNG ANH',
+      role: 'EDITOR CÁC KÊNH BÁC SĨ VÀ KÊNH CHÍNH «SHOW GIÁ THẨM MỸ»',
+      description: '',
     },
   ],
   projects: [
@@ -56,8 +58,8 @@ export const PORTFOLIO_DATA = {
     },
   ],
   contact: {
-    phone: '09 814 27148',
+    phone: '0981 427 148',
     email: 'tr.dung209@gmail.com',
-    facebook: '/DugDSChip',
+    facebook: 'https://www.facebook.com/DugDSChip',
   },
 }

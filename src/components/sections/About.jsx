@@ -16,26 +16,30 @@ export function About() {
           <p className="whitespace-pre-wrap">{about.description}</p>
         </div>
 
-        <div className="pt-8 border-t border-foreground/20">
-          <h3 className="font-display text-2xl font-bold uppercase mb-4">Sở Thích</h3>
-          <p className="text-foreground/80 leading-relaxed">{about.hobbies}</p>
-        </div>
+        {about.hobbies?.trim() ? (
+          <div className="pt-8 border-t border-foreground/20">
+            <h3 className="font-display text-2xl font-bold uppercase mb-4">Sở Thích</h3>
+            <p className="text-foreground/80 leading-relaxed">{about.hobbies}</p>
+          </div>
+        ) : null}
       </div>
 
       <div className="space-y-12 bg-white border-2 border-foreground p-8 shadow-[8px_8px_0px_0px_rgba(17,17,17,1)]">
-        <div>
-          <h3 className="font-display text-2xl font-bold uppercase mb-4 pb-2 border-b-2 border-foreground/20">
-            Thành Tích
-          </h3>
-          <ul className="space-y-4">
-            {about.achievements.map((item, i) => (
-              <li key={i} className="flex gap-4 items-start">
-                <span className="text-brand font-bold mt-1">★</span>
-                <span className="font-medium">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {about.achievements?.length ? (
+          <div>
+            <h3 className="font-display text-2xl font-bold uppercase mb-4 pb-2 border-b-2 border-foreground/20">
+              Thành Tích
+            </h3>
+            <ul className="space-y-4">
+              {about.achievements.map((item, i) => (
+                <li key={i} className="flex gap-4 items-start">
+                  <span className="text-brand font-bold mt-1">★</span>
+                  <span className="font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <div className="pt-8 border-t-2 border-foreground/20">
           <h3 className="font-display text-2xl font-bold uppercase mb-4 pb-2 border-b-2 border-foreground/20">
@@ -66,12 +70,16 @@ export function About() {
                 Facebook
               </span>
               <a
-                href={`https://facebook.com${contact.facebook}`}
+                href={
+                  contact.facebook.startsWith('http')
+                    ? contact.facebook
+                    : `https://facebook.com${contact.facebook.startsWith('/') ? '' : '/'}${contact.facebook}`
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="text-right break-all hover:text-brand transition-colors"
               >
-                {contact.facebook}
+                {contact.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\/?/i, '')}
               </a>
             </li>
           </ul>

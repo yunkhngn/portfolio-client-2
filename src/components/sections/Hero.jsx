@@ -40,7 +40,9 @@ export function Hero() {
                 {role}
               </span>
             ))}
-            <span className="border border-foreground px-2 py-1">{hero.age}</span>
+            {hero.age?.trim() ? (
+              <span className="border border-foreground px-2 py-1">{hero.age}</span>
+            ) : null}
           </div>
         </div>
 
