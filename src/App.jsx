@@ -5,6 +5,7 @@ import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { Marquee } from "./components/Marquee";
+import { VideoIntro } from "./components/VideoIntro";
 import { PORTFOLIO_DATA } from "./config";
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
 
       {/* 3. About */}
       <About />
+
+      {/* Intro Video Mockup */}
+      <VideoIntro />
 
       {/* 4. Marquee Reverse */}
       <div className="max-w-[90rem] mx-auto border-x-brutal">
