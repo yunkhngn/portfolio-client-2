@@ -1,89 +1,84 @@
-import { Globe, Mail, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { PORTFOLIO_DATA } from '../../config'
+import { SectionHeading } from '../shared/SectionHeading'
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.6, delay },
+})
 
 export function About() {
-  const { about, contact } = PORTFOLIO_DATA
+  const { about } = PORTFOLIO_DATA
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 py-12">
-      <div className="space-y-8">
-        <h2 className="font-display text-5xl font-bold uppercase tracking-tight border-b-8 border-brand pb-4 inline-block">
-          Profile
-        </h2>
-
-        <div className="prose prose-lg text-foreground/80 font-medium max-w-none">
-          <p className="font-bold text-xl text-foreground">{about.greeting}</p>
-          <p className="whitespace-pre-wrap">{about.description}</p>
-        </div>
-
-        {about.hobbies?.trim() ? (
-          <div className="pt-8 border-t border-foreground/20">
-            <h3 className="font-display text-2xl font-bold uppercase mb-4">Sở Thích</h3>
-            <p className="text-foreground/80 leading-relaxed">{about.hobbies}</p>
+    <div className="space-y-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <motion.div {...fadeUp()} className="relative flex justify-center">
+          <div className="relative w-full max-w-sm">
+            <div className="absolute inset-0 rounded-2xl bg-accent translate-x-3 translate-y-3" />
+            <div className="relative rounded-2xl overflow-hidden border-2 border-[#222] bg-bg-card">
+              <img
+                src={about.avatar}
+                alt="Trần Văn Dũng"
+                className="w-full aspect-[3/4] object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                  e.target.parentElement.innerHTML =
+                    '<div class="w-full aspect-[3/4] bg-bg-card flex items-center justify-center"><span class="text-white/20 font-mono text-sm">Photo</span></div>'
+                }}
+              />
+            </div>
           </div>
-        ) : null}
+        </motion.div>
+
+        <motion.div {...fadeUp(0.2)} className="space-y-6">
+          <SectionHeading pill="ABOUT">About Me</SectionHeading>
+          <h3 className="font-display text-2xl md:text-3xl font-bold text-white">{about.greeting}</h3>
+          <p className="text-white/60 leading-relaxed text-base md:text-lg">{about.bio}</p>
+        </motion.div>
       </div>
 
-      <div className="space-y-12 bg-white border-2 border-foreground p-8 shadow-[8px_8px_0px_0px_rgba(17,17,17,1)]">
-        {about.achievements?.length ? (
-          <div>
-            <h3 className="font-display text-2xl font-bold uppercase mb-4 pb-2 border-b-2 border-foreground/20">
-              Thành Tích
-            </h3>
-            <ul className="space-y-4">
-              {about.achievements.map((item, i) => (
-                <li key={i} className="flex gap-4 items-start">
-                  <span className="text-brand font-bold mt-1">★</span>
-                  <span className="font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div {...fadeUp(0)} className="card-dark rounded-2xl p-8">
+          <span className="pill-badge text-accent border-accent/30 mb-4 inline-flex">{about.education.label}</span>
+          <h4 className="font-display text-lg font-bold uppercase mt-3 text-accent">{about.education.school}</h4>
+          <p className="text-white/50 mt-2 text-sm leading-relaxed">{about.education.detail}</p>
+          <p className="font-mono text-xs text-white/30 mt-3">{about.education.period}</p>
+        </motion.div>
 
-        <div className="pt-8 border-t-2 border-foreground/20">
-          <h3 className="font-display text-2xl font-bold uppercase mb-4 pb-2 border-b-2 border-foreground/20">
-            Contact
-          </h3>
-          <ul className="space-y-4 font-mono">
-            <li className="flex items-start justify-between border-b border-foreground/10 pb-2 gap-4">
-              <span className="font-bold shrink-0 inline-flex items-center gap-2">
-                <Phone className="size-4 text-brand shrink-0" aria-hidden />
-                Phone
-              </span>
-              <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="text-right hover:text-brand transition-colors">
-                {contact.phone}
-              </a>
-            </li>
-            <li className="flex items-start justify-between border-b border-foreground/10 pb-2 gap-4">
-              <span className="font-bold shrink-0 inline-flex items-center gap-2">
-                <Mail className="size-4 text-brand shrink-0" aria-hidden />
-                Email
-              </span>
-              <a href={`mailto:${contact.email}`} className="text-right break-all hover:text-brand transition-colors">
-                {contact.email}
-              </a>
-            </li>
-            <li className="flex items-start justify-between border-b border-foreground/10 pb-2 gap-4">
-              <span className="font-bold shrink-0 inline-flex items-center gap-2">
-                <Globe className="size-4 text-brand shrink-0" aria-hidden />
-                Facebook
-              </span>
-              <a
-                href={
-                  contact.facebook.startsWith('http')
-                    ? contact.facebook
-                    : `https://facebook.com${contact.facebook.startsWith('/') ? '' : '/'}${contact.facebook}`
-                }
-                target="_blank"
-                rel="noreferrer"
-                className="text-right break-all hover:text-brand transition-colors"
-              >
-                {contact.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\/?/i, '')}
-              </a>
-            </li>
+        <motion.div {...fadeUp(0.1)} className="card-dark rounded-2xl p-8">
+          <span className="pill-badge text-accent border-accent/30 mb-4 inline-flex">SKILLS</span>
+          <ul className="space-y-3 mt-3">
+            {about.skills.map((skill) => (
+              <li key={skill} className="flex items-center gap-3">
+                <span className="text-accent text-xs">◆</span>
+                <span className="text-white/70 text-sm font-medium uppercase tracking-wide">{skill}</span>
+              </li>
+            ))}
           </ul>
-        </div>
+        </motion.div>
+
+        <motion.div {...fadeUp(0.2)} className="card-dark rounded-2xl p-8">
+          <span className="pill-badge text-accent border-accent/30 mb-4 inline-flex">TOOLS</span>
+          <div className="grid grid-cols-3 gap-3 mt-3">
+            {about.tools.map((tool) => (
+              <div
+                key={tool.name}
+                className="flex flex-col items-center gap-1.5 p-3 rounded-xl hover:scale-105 transition-transform cursor-default"
+                style={{ backgroundColor: tool.bg }}
+              >
+                <span className="text-xl font-bold font-mono" style={{ color: tool.color }}>
+                  {tool.short}
+                </span>
+                <span className="text-[9px] text-white/50 uppercase tracking-wider text-center leading-tight">
+                  {tool.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </div>
   )

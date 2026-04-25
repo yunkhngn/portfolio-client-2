@@ -1,79 +1,58 @@
-import { useState } from 'react'
-import { Play } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { PORTFOLIO_DATA } from '../../config'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { SectionHeading } from '../shared/SectionHeading'
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay },
+})
 
 export function Projects() {
   const { projects } = PORTFOLIO_DATA
-  const [activeIndex, setActiveIndex] = useState(null)
 
   return (
-    <div className="py-12">
-      <h2 className="font-display text-5xl font-bold uppercase tracking-tight border-b-8 border-brand pb-4 inline-block mb-12">
-        Featured Edits
-      </h2>
+    <div>
+      <SectionHeading pill="WORKS">Branding</SectionHeading>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="space-y-4">
         {projects.map((project, index) => (
-          <Card
+          <motion.div
             key={index}
-            className="flex flex-col gap-0 overflow-hidden rounded-none border-2 border-foreground bg-white py-0 shadow-[8px_8px_0px_0px_rgba(17,17,17,1)] transition-all hover:shadow-[12px_12px_0px_0px_rgba(226,90,39,1)] ring-0"
+            {...fadeUp(index * 0.1)}
+            className="card-dark rounded-2xl p-6 md:p-8 flex items-center gap-6 group cursor-default"
           >
-            <div className="aspect-video border-b-2 border-foreground relative overflow-hidden bg-black">
-              {activeIndex === index ? (
-                <iframe
-                  src={project.videoUrl}
-                  title={project.title}
-                  className="absolute inset-0 w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : (
-                <>
-                  <img
-                    src={project.thumbnail}
-                    alt=""
-                    className="w-full h-full object-cover opacity-95"
-                    width={1280}
-                    height={720}
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/35">
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      size="lg"
-                      className="gap-2 font-display uppercase shadow-md"
-                      onClick={() => setActiveIndex(index)}
-                    >
-                      <Play className="size-5 fill-current" aria-hidden />
-                      Xem video
-                    </Button>
-                  </div>
-                </>
-              )}
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-bg flex-shrink-0 border border-border">
+              <img
+                src={project.thumbnail}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                  e.target.parentElement.innerHTML =
+                    '<div class="w-full h-full flex items-center justify-center text-white/20 font-mono text-xs">📹</div>'
+                }}
+              />
             </div>
-            <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-4 border-0 px-6 pt-6 pb-0 space-y-0">
-              <CardTitle className="font-display text-2xl font-bold uppercase leading-tight">
-                {project.title}
-              </CardTitle>
-              <span className="font-mono text-xs px-2 py-1 bg-foreground text-background whitespace-nowrap shrink-0 rounded-sm">
-                {project.type}
-              </span>
-            </CardHeader>
-            <CardContent className="px-6 pb-6 pt-4">
-              <CardDescription className="text-foreground/80 text-base font-medium">
-                {project.description}
-              </CardDescription>
-            </CardContent>
-          </Card>
+
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-3 mb-1 flex-wrap">
+                <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/20 text-accent border border-accent/30">
+                  {project.category}
+                </span>
+                <span className="text-white/30 font-mono text-xs">{project.projectCount}</span>
+              </div>
+              <h3 className="font-display text-xl md:text-2xl font-bold uppercase truncate">{project.title}</h3>
+              {project.description ? (
+                <p className="text-white/45 text-sm mt-2 line-clamp-2">{project.description}</p>
+              ) : null}
+            </div>
+
+            <span className="text-white/30 text-2xl group-hover:text-accent group-hover:rotate-45 transition-all flex-shrink-0">
+              +
+            </span>
+          </motion.div>
         ))}
       </div>
     </div>

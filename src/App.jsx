@@ -1,28 +1,38 @@
-import { Layout } from './components/shared/Layout'
-import { Section } from './components/shared/Section'
 import { Hero } from './components/sections/Hero'
 import { About } from './components/sections/About'
-import { Experience } from './components/sections/Experience'
 import { Projects } from './components/sections/Projects'
+import { Experience } from './components/sections/Experience'
+import { Contact } from './components/sections/Contact'
+import { Footer } from './components/sections/Footer'
+import { Section } from './components/shared/Section'
+import { Marquee } from './components/shared/Marquee'
+import { PORTFOLIO_DATA } from './config'
 
 function App() {
   return (
-    <Layout>
-      <main>
-        <Section id="hero" className="border-b border-foreground/10 flex items-center">
-          <Hero />
-        </Section>
-        <Section id="about" className="border-b border-foreground/10">
-          <About />
-        </Section>
-        <Section id="work" className="border-b border-foreground/10">
-          <Experience />
-        </Section>
-        <Section id="projects">
-          <Projects />
-        </Section>
-      </main>
-    </Layout>
+    <div className="bg-bg text-white">
+      <Hero />
+
+      <Section id="about">
+        <About />
+      </Section>
+
+      <Marquee items={PORTFOLIO_DATA.marquee.items} />
+
+      <Section id="projects" className="grid-bg">
+        <Projects />
+      </Section>
+
+      <Section id="experience" className="grid-bg">
+        <Experience />
+      </Section>
+
+      <Section id="contact">
+        <Contact />
+      </Section>
+
+      <Footer />
+    </div>
   )
 }
 

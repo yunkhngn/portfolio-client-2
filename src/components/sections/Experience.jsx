@@ -1,31 +1,52 @@
+import { motion } from 'framer-motion'
 import { PORTFOLIO_DATA } from '../../config'
+import { SectionHeading } from '../shared/SectionHeading'
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay },
+})
 
 export function Experience() {
   const { experience } = PORTFOLIO_DATA
 
   return (
-    <div className="py-12 w-full">
-      <h2 className="font-display text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-16 opacity-10">
-        Kinh Nghiệm
-      </h2>
+    <div>
+      <SectionHeading pill="EXPERIENCE">My Journey</SectionHeading>
 
-      <div className="space-y-0 border-t-2 border-foreground">
+      <div className="space-y-6">
         {experience.map((exp, index) => (
-          <div
+          <motion.div
             key={index}
-            className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12 py-8 border-b-2 border-foreground group hover:bg-foreground hover:text-background transition-colors px-4 -mx-4 cursor-default"
+            {...fadeUp(index * 0.1)}
+            className="card-dark rounded-2xl p-8 md:p-10 relative overflow-hidden group"
           >
-            <div className="font-mono text-lg font-bold">{exp.year}</div>
-            <div>
-              <h3 className="font-display text-2xl md:text-3xl font-bold uppercase">{exp.company}</h3>
-              <p className="text-xl mt-2 font-medium group-hover:text-brand transition-colors">{exp.role}</p>
-              {exp.description && (
-                <p className="mt-4 opacity-80 max-w-2xl text-sm leading-relaxed tracking-wide">
-                  {exp.description}
-                </p>
-              )}
+            {exp.current && (
+              <div className="absolute top-4 right-4">
+                <span className="flex items-center gap-2 text-xs font-mono text-accent">
+                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                  Present
+                </span>
+              </div>
+            )}
+
+            <h3 className="font-display text-2xl md:text-3xl font-bold uppercase">{exp.company}</h3>
+            {exp.subtitle && (
+              <p className="text-white/30 text-xs font-mono mt-1 uppercase tracking-wider">{exp.subtitle}</p>
+            )}
+
+            <p className="text-accent font-medium mt-2 text-lg uppercase tracking-wide">{exp.role}</p>
+
+            <div className="mt-4">
+              <span className="inline-block px-4 py-2 rounded-xl border border-border text-white/40 font-mono text-xs tracking-wider">
+                {exp.year}
+              </span>
             </div>
-          </div>
+
+            <p className="text-white/50 mt-4 leading-relaxed max-w-2xl">{exp.description}</p>
+          </motion.div>
         ))}
       </div>
     </div>

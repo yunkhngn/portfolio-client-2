@@ -1,16 +1,21 @@
 import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
-export function Section({ id, className, children }) {
+export function Section({ id, className, children, light = false }) {
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`min-h-screen py-20 px-4 md:px-8 max-w-7xl mx-auto border-x border-foreground/10 ${className || ''}`}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        'py-24 md:py-32 relative',
+        light ? 'bg-bg-light text-[#111]' : 'bg-bg text-white',
+        className,
+      )}
     >
-      {children}
+      <div className="section-container relative z-10">{children}</div>
     </motion.section>
   )
 }
