@@ -4,32 +4,29 @@ import { Projects } from './components/sections/Projects'
 import { Experience } from './components/sections/Experience'
 import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
-import { Section } from './components/shared/Section'
 import { Marquee } from './components/shared/Marquee'
 import { PORTFOLIO_DATA } from './config'
 
 function App() {
   return (
-    <div className="bg-bg text-white">
+    <div className="bg-background min-h-screen">
       <Hero />
 
-      <Section id="about">
-        <About />
-      </Section>
+      <div className="max-w-7xl mx-auto border-x-brutal">
+        <Marquee items={PORTFOLIO_DATA.marquee.items} />
+      </div>
 
-      <Marquee items={PORTFOLIO_DATA.marquee.items} />
+      <About />
 
-      <Section id="projects" className="grid-bg">
-        <Projects />
-      </Section>
+      <div className="max-w-7xl mx-auto border-x-brutal">
+        <Marquee items={PORTFOLIO_DATA.marquee.items} reverse className="bg-accent text-white" />
+      </div>
 
-      <Section id="experience" className="grid-bg">
-        <Experience />
-      </Section>
+      <Projects />
 
-      <Section id="contact">
-        <Contact />
-      </Section>
+      <Experience />
+
+      <Contact />
 
       <Footer />
     </div>
