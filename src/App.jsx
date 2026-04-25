@@ -8,7 +8,7 @@ import { Projects } from './components/sections/Projects'
 function App() {
   return (
     <Layout>
-      <main className="pt-16">
+      <main>
         <Section id="hero" className="border-b border-foreground/10 flex items-center">
           <Hero />
         </Section>
