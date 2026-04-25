@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -32,43 +32,64 @@
 }
 
 @layer components {
+
+  /* Behance Style Brutalist / Editorial UI */
   .border-brutal {
-    @apply border-2 border-foreground;
+    @apply border-[3px] border-foreground;
   }
 
   .border-b-brutal {
-    @apply border-b-2 border-foreground;
-  }
-
-  .border-t-brutal {
-    @apply border-t-2 border-foreground;
+    @apply border-b-[3px] border-foreground;
   }
 
   .border-x-brutal {
-    @apply border-x-2 border-foreground;
+    @apply border-x-[3px] border-foreground;
+  }
+
+  .border-t-brutal {
+    @apply border-t-[3px] border-foreground;
   }
 
   .border-y-brutal {
-    @apply border-y-2 border-foreground;
-  }
-
-  .border-r-brutal {
-    @apply border-r-2 border-foreground;
+    @apply border-y-[3px] border-foreground;
   }
 
   .shadow-brutal {
-    @apply shadow-[6px_6px_0px_0px_rgba(17,17,17,1)] transition-all duration-300;
+    box-shadow: 8px 8px 0px 0px #111111;
+    transition: all 0.3s ease;
   }
 
   .shadow-brutal:hover {
-    @apply shadow-[8px_8px_0px_0px_rgba(226,90,39,1)] translate-x-[-2px] translate-y-[-2px];
+    box-shadow: 10px 10px 0px 0px #E25A27;
+    transform: translate(-2px, -2px);
+  }
+
+  /* Different shadow for stacked polaroids */
+  .shadow-stack {
+    box-shadow: 4px 4px 0px 0px #111111;
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-4 md:px-8 border-x-brutal;
+    @apply max-w-[90rem] mx-auto px-4 md:px-8 border-x-brutal;
   }
 
   .badge-editorial {
-    @apply inline-flex items-center px-2 py-1 border-brutal text-xs font-bold uppercase tracking-widest bg-white;
+    @apply inline-flex items-center px-3 py-1.5 border-brutal text-xs font-bold uppercase tracking-widest bg-white;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 10s linear infinite;
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 2px #111111;
+    color: transparent;
+  }
+
+  .text-outline-accent {
+    -webkit-text-stroke: 2px #E25A27;
+    color: transparent;
   }
 }

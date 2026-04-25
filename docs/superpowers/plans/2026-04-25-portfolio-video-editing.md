@@ -1,12 +1,17 @@
-# Video Editor Portfolio Implementation Plan
+# Video Editor Portfolio Implementation Plan (Adobe UI Concept)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a comprehensive Vite+React portfolio website for video editor Trần Văn Dũng. The structure includes all full-page sections (Hero, About, Projects, Experience, Contact, Footer, Marquee), but the **design concept** strictly follows the Behance reference: a light, editorial, modern-brutalist aesthetic (warm gray/beige backgrounds, thick black borders, prominent typography, and orange accents).
+**Goal:** Build a highly unique portfolio that visually mimics the interface of a professional video editing software (like Adobe Premiere Pro). The entire website will be a fixed 100vh layout with resizable-looking panels (Project Bin, Program Monitor, Effect Controls, Timeline). 
 
-**Architecture:** Single-page React application using Vite. All portfolio content is stored in `src/config.js` for easy management. Sections are rendering top-to-bottom with Framer Motion scroll-triggered reveals tailored to the editorial style (sharp translations, stiff springs rather than slow fades).
+**Architecture:** Single-page React application (Vite). Fixed `h-screen` layout with absolute/grid positioning to mimic panels.
+- **Top:** Menu Bar (File, Edit, Contact).
+- **Left Panel:** Project Bin (Showcasing portfolio projects with thumbnails).
+- **Center Panel:** Program Monitor (Hero view, displaying main profile or active video).
+- **Right Panel:** Properties/Effects (Skills as sliders, Tools, Bio info).
+- **Bottom Panel:** Timeline (Work Experience plotted as video clips on a timeline track).
 
-**Tech Stack:** React 18, Vite, Tailwind CSS v3, Framer Motion, Lucide React, clsx + tailwind-merge.
+**Tech Stack:** React 18, Vite, Tailwind CSS v3, Framer Motion (for panel interactions and clip animations), Lucide React (for UI icons).
 
 ---
 
@@ -14,37 +19,31 @@
 
 | File | Responsibility |
 |------|---------------|
-| `src/config.js` | All portfolio content data (extracted from content.md) |
-| `src/index.css` | Global styles, fonts, editorial Tailwind directives (thick borders, shadows) |
-| `src/App.jsx` | Root layout, assembling all sections with border separators |
-| `src/components/shared/Section.jsx` | Reusable section wrapper with editorial layout constraints |
-| `src/components/shared/Marquee.jsx` | Infinite scrolling text banner (editorial style) |
-| `src/components/shared/SectionHeading.jsx` | Reusable section title with bold typography |
-| `src/components/sections/Hero.jsx` | Editorial hero: Name, philosophy, roles, software icons |
-| `src/components/sections/About.jsx` | Bio, education, skills, tools in border-boxed layout |
-| `src/components/sections/Projects.jsx` | Video project showcase cards with brutalist borders |
-| `src/components/sections/Experience.jsx` | Work experience list with sharp borders and typography |
-| `src/components/sections/Contact.jsx` | CTA "Let's work together" with large display text |
-| `src/components/sections/Footer.jsx` | Social links, contact info, copyright |
+| `src/config.js` | All portfolio content data |
+| `src/index.css` | Global styles (dark gray Adobe theme colors, scrollbars) |
+| `src/App.jsx` | Main workspace grid layout |
+| `src/components/ui/Panel.jsx` | Reusable software panel UI (with header and inner styling) |
+| `src/components/workspace/MenuBar.jsx` | Top menu bar (mock app menus) |
+| `src/components/workspace/ToolBar.jsx` | Vertical toolbar (Selection tool, Razor tool, etc.) |
+| `src/components/workspace/ProjectBin.jsx` | Left panel: List of projects |
+| `src/components/workspace/ProgramMonitor.jsx` | Center top: Hero intro & Video playback |
+| `src/components/workspace/Properties.jsx` | Right panel: About me, Skills (sliders), Tools |
+| `src/components/workspace/Timeline.jsx` | Bottom panel: Work experience as video clips |
 
 ---
 
-### Task 1: Project Initialization & Dependency Setup
+### Task 1: Project Setup & "Adobe Theme" Config
 
 **Files:**
-- Create/Modify: `package.json`, `tailwind.config.js`, `index.html`, `vite.config.js`, `src/index.css`, `src/lib/utils.js`, `src/main.jsx`
+- Create/Modify: `package.json`, `tailwind.config.js`, `index.html`, `vite.config.js`, `src/index.css`, `src/lib/utils.js`
 
 - [ ] **Step 1: Initialize Vite React project**
-
 ```bash
 cd /Volumes/Data/Code/freelance/portfolio-2
 npm create vite@latest . -- --template react
 ```
 
-Select `React` and `JavaScript` if prompted (it may just execute if using `.`).
-
-- [ ] **Step 2: Install all dependencies**
-
+- [ ] **Step 2: Install dependencies**
 ```bash
 npm install
 npm install -D tailwindcss@3 postcss autoprefixer
@@ -52,12 +51,10 @@ npx tailwindcss init -p
 npm install framer-motion lucide-react clsx tailwind-merge
 ```
 
-- [ ] **Step 3: Create utility file**
-
+- [ ] **Step 3: Create utility function**
 ```bash
 mkdir -p src/lib
 ```
-
 Create `src/lib/utils.js`:
 ```javascript
 import { clsx } from "clsx";
@@ -68,9 +65,8 @@ export function cn(...inputs) {
 }
 ```
 
-- [ ] **Step 4: Configure tailwind.config.js (Editorial Theme)**
-
-Overwrite `tailwind.config.js`:
+- [ ] **Step 4: Configure tailwind.config.js**
+Overwrite `tailwind.config.js` to use specific Adobe dark UI grays:
 ```javascript
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -81,113 +77,70 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#F4F4F0", // Light warm gray/beige from the Behance concept
-        foreground: "#111111", // Deep black for text and borders
-        accent: "#E25A27", // Orange accent color
-        card: "#FFFFFF",
+        appBg: "#18181A",      // Darkest (spacing between panels)
+        panelBg: "#242424",    // Standard panel background
+        panelHeader: "#2D2D2D",// Panel title bar
+        borderLine: "#424242", // 1px borders
+        textMuted: "#999999",
+        textNormal: "#CCCCCC",
+        textHighlight: "#FFFFFF",
+        accent: "#2D8CFF",     // Selection blue
+        trackBg: "#1E1E1E",    // Timeline track
+        clipBg: "#285680",     // Default video clip color
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Space Grotesk", "sans-serif"],
-        handwriting: ["Caveat", "cursive"], // Used for "make everything looks interesting"
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "var(--tailwind-sans)"],
         mono: ["JetBrains Mono", "monospace"],
       },
-      animation: {
-        "marquee": "marquee 20s linear infinite",
-        "marquee-reverse": "marquee-reverse 20s linear infinite",
-      },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        "marquee-reverse": {
-          "0%": { transform: "translateX(-50%)" },
-          "100%": { transform: "translateX(0%)" },
-        },
-      },
+      fontSize: {
+        "ui-xs": "10px",
+        "ui-sm": "12px",
+        "ui-base": "14px",
+      }
     },
   },
   plugins: [],
 };
 ```
 
-- [ ] **Step 5: Setup global styles in index.css**
-
-Overwrite `src/index.css`:
+- [ ] **Step 5: Setup global styles (index.css)**
+Overwrite `src/index.css` to handle custom scrollbars:
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply box-border;
+  html, body, #root {
+    @apply m-0 p-0 w-full h-[100dvh] overflow-hidden bg-appBg text-textNormal font-sans text-ui-sm select-none;
   }
 
-  html {
-    scroll-behavior: smooth;
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
   }
-
-  body {
-    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+  ::-webkit-scrollbar-track {
+    @apply bg-appBg;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#4D4D4D] border-4 border-solid border-appBg rounded-full;
   }
-
-  ::selection {
-    @apply bg-accent text-white;
-  }
-}
-
-@layer components {
-  /* Editorial / Brutalist utility classes */
-  .border-brutal {
-    @apply border-2 border-foreground;
-  }
-  
-  .border-b-brutal {
-    @apply border-b-2 border-foreground;
-  }
-
-  .border-x-brutal {
-    @apply border-x-2 border-foreground;
-  }
-
-  .shadow-brutal {
-    @apply shadow-[6px_6px_0px_0px_rgba(17,17,17,1)] transition-all duration-300;
-  }
-  
-  .shadow-brutal:hover {
-    @apply shadow-[8px_8px_0px_0px_rgba(226,90,39,1)] translate-x-[-2px] translate-y-[-2px];
-  }
-
-  .section-container {
-    @apply max-w-7xl mx-auto px-4 md:px-8 border-x-brutal;
-  }
-
-  .badge-editorial {
-    @apply inline-flex items-center px-2 py-1 border-brutal text-xs font-bold uppercase tracking-widest bg-white;
+  ::-webkit-scrollbar-corner {
+    @apply bg-appBg;
   }
 }
 ```
 
-- [ ] **Step 6: Update index.html with meta tags**
-
-Overwrite `index.html`:
+- [ ] **Step 6: Update index.html**
 ```html
 <!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Trần Văn Dũng — Video Editor Portfolio. 4 năm kinh nghiệm, theo đuổi storytelling điện ảnh." />
-    <title>Trần Văn Dũng — Video Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Trần Văn Dũng - Video Editor UI</title>
   </head>
   <body>
     <div id="root"></div>
@@ -196,637 +149,577 @@ Overwrite `index.html`:
 </html>
 ```
 
-- [ ] **Step 7: Ensure main.jsx is correct**
-
-Overwrite `src/main.jsx`:
-```jsx
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.jsx';
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
-```
-
-- [ ] **Step 8: Verify dev server starts**
-
-```bash
-npm run dev
-```
-
-- [ ] **Step 9: Commit**
-
+- [ ] **Step 7: Commit**
 ```bash
 git add .
-git commit -m "chore: initialize vite project with editorial tailwind config"
+git commit -m "chore: setup premiere pro dark ui theme"
 ```
 
 ---
 
-### Task 2: Create Configuration Data
+### Task 2: Content Configuration Data
 
 **Files:**
 - Create: `src/config.js`
 
-- [ ] **Step 1: Write config.js using new content.md**
-
+- [ ] **Step 1: Write config.js mapping content to UI panels**
 Create `src/config.js`:
 ```javascript
 export const PORTFOLIO_DATA = {
-  hero: {
-    name: "TRẦN VĂN DŨNG",
-    slogan: "make everything looks interesting",
-    roles: ["VIDEO EDITOR", "PHOTOGRAPHER"],
-    experience: "4 YEARS EXP",
-  },
-
-  marquee: {
-    items: ["VIDEO EDITING", "STORYTELLING", "COLOR GRADING", "FITNESS", "BEAUTY", "COMMERCIAL"],
-  },
-
   about: {
-    title: "ABOUT ME",
-    bio: "Tôi là một Video Editor với 4 năm kinh nghiệm, theo đuổi storytelling điện ảnh, nơi mỗi khung hình, nhịp dựng và âm thanh hòa quyện để dẫn dắt cảm xúc và tạo nên những trải nghiệm thị giác giàu chiều sâu. Tôi đặc biệt có thế mạnh trong việc sản xuất nội dung video cho lĩnh vực Thẩm mỹ và Fitness, nơi hình ảnh không chỉ đẹp mà còn phải truyền tải được cảm xúc và giá trị.",
-    avatar: "/port.JPG", // Using the provided image
-    education: {
-      school: "Hà Nội",
-      detail: "Sản xuất video Thẩm mỹ & Fitness",
-    },
-    skills: ["Storytelling", "Color Grading", "Motion Graphics", "Social Media Viral"],
-    tools: [
-      { name: "Pr", color: "#9999FF", bg: "#00005C" },
-      { name: "Ae", color: "#9999FF", bg: "#00005C" },
-      { name: "Ps", color: "#31A8FF", bg: "#001E36" },
-      { name: "Ai", color: "#FF9A00", bg: "#330000" },
-      { name: "Lr", color: "#31A8FF", bg: "#001E36" },
-      { name: "Capcut", color: "#000000", bg: "#FFFFFF" },
-    ],
+    name: "Trần Văn Dũng",
+    bio: "Video Editor với 4 năm kinh nghiệm. Thế mạnh sản xuất nội dung Thẩm mỹ & Fitness.",
+    roles: ["Video Editor", "Colorist", "VFX"],
+    avatar: "/port.JPG", // user provided
   },
 
-  projects: [
-    {
-      title: "Thẩm Mỹ Trung Anh",
-      category: "BEAUTY",
-      description: "Editor các kênh bác sĩ và kênh chính Show Giá Thẩm Mỹ. Hình ảnh chỉn chu, truyền tải giá trị.",
-      videoUrl: "", 
-    },
-    {
-      title: "EMS Fitness & Yoga",
-      category: "FITNESS",
-      description: "Edit video chính của team, sản xuất hiệu ứng, tham gia quay chụp trực tiếp.",
-      videoUrl: "",
-    },
-    {
-      title: "Storytelling Concept",
-      category: "CINEMATIC",
-      description: "Dẫn dắt cảm xúc người xem qua nhịp dựng và âm thanh điện ảnh.",
-      videoUrl: "",
-    }
+  skills: [
+    { name: "Video Editing", value: 95 },
+    { name: "Color Grading", value: 85 },
+    { name: "Storytelling", value: 90 },
+    { name: "Motion Graphics", value: 75 },
   ],
 
-  experience: [
-    {
-      year: "2024 - 2026",
-      company: "THẨM MỸ TRUNG ANH",
-      role: "VIDEO EDITOR",
-      description: "Editor các kênh bác sĩ và kênh chính Show Giá Thẩm Mỹ.",
+  tools: [
+    { name: "Premiere Pro", ext: ".prproj", color: "#9999FF", bg: "#00005B" },
+    { name: "After Effects", ext: ".aep", color: "#9999FF", bg: "#00005B" },
+    { name: "Photoshop", ext: ".psd", color: "#31A8FF", bg: "#001E36" },
+    { name: "Illustrator", ext: ".ai", color: "#FF9A00", bg: "#330000" },
+    { name: "CapCut", ext: ".ccp", color: "#FFFFFF", bg: "#000000" },
+  ],
+
+  projects: [
+    { id: "p1", title: "Thẩm Mỹ Trung Anh.mp4", duration: "02:15:00", fps: "60.00", category: "Beauty" },
+    { id: "p2", title: "EMS Fitness Commercial.mp4", duration: "01:30:12", fps: "29.97", category: "Fitness" },
+    { id: "p3", title: "Social Media Reels.mp4", duration: "00:45:00", fps: "30.00", category: "Social" },
+  ],
+
+  experienceClips: [
+    { 
+      id: "exp1", 
+      company: "Thẩm Mỹ Trung Anh", 
+      role: "Video Editor", 
+      year: "2024-2026", 
+      track: 1, 
+      startPos: 70, // percentage for visual layout
+      width: 25, 
+      color: "#285680" 
     },
-    {
-      year: "2022 - 2024",
-      company: "EMS FITNESS & YOGA",
-      subtitle: "HỆ THỐNG TTTH CAO CẤP",
-      role: "VIDEO EDITOR & DESIGNER",
-      description: "Thiết kế các post fb, ấn phẩm, edit video chính của team, sản xuất hiệu ứng, có tham gia đi quay chụp cùng team media.",
+    { 
+      id: "exp2", 
+      company: "EMS Fitness", 
+      role: "Editor & Designer", 
+      year: "2022-2024", 
+      track: 2, 
+      startPos: 40, 
+      width: 28, 
+      color: "#3F633E" 
     },
-    {
-      year: "T9/2020 - 2021",
-      company: "CÔNG TY CP TRÍ TUỆ NHÂN TẠO THIÊN HÀ",
-      role: "THỰC TẬP SINH (ANIMATION)",
-      description: "",
+    { 
+      id: "exp3", 
+      company: "Trí Tuệ Nhân Tạo Thiên Hà", 
+      role: "Animation Intern", 
+      year: "2020-2021", 
+      track: 3, 
+      startPos: 15, 
+      width: 23, 
+      color: "#5B4A78" 
     },
-    {
-      year: "T3 - T9/2020",
-      company: "BASKIN ROBBINS HÀ ĐÔNG",
-      role: "NHÂN VIÊN THIẾT KẾ",
-      description: "",
+    { 
+      id: "exp4", 
+      company: "Baskin Robbins", 
+      role: "Designer", 
+      year: "2020", 
+      track: 4, 
+      startPos: 3, 
+      width: 10, 
+      color: "#7A4545" 
     },
   ],
 
   contact: {
-    heading: "LET'S WORK",
-    subheading: "TOGETHER",
     phone: "0981427148",
     email: "tr.dung209@gmail.com",
-    facebook: "https://www.facebook.com/DugDSChip",
-  },
+    fb: "DugDSChip"
+  }
 };
 ```
 
 - [ ] **Step 2: Commit**
-
 ```bash
 git add src/config.js
-git commit -m "feat: add portfolio configuration from content.md"
+git commit -m "feat: config data shaped for software UI model"
 ```
 
 ---
 
-### Task 3: Build Shared Components
+### Task 3: Base UI Components (Panel & MenuBar)
 
 **Files:**
-- Create: `src/components/shared/SectionHeading.jsx`
-- Create: `src/components/shared/Marquee.jsx`
+- Create: `src/components/ui/Panel.jsx`
+- Create: `src/components/workspace/MenuBar.jsx`
 
-- [ ] **Step 1: Create directory structure**
-
+- [ ] **Step 1: Create Panel component**
 ```bash
-mkdir -p src/components/shared
-mkdir -p src/components/sections
+mkdir -p src/components/ui src/components/workspace
 ```
-
-- [ ] **Step 2: Create SectionHeading component**
-
-Create `src/components/shared/SectionHeading.jsx`:
+Create `src/components/ui/Panel.jsx`:
 ```jsx
-export function SectionHeading({ children }) {
-  return (
-    <div className="border-b-brutal pb-4 mb-10 w-full">
-      <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tighter">
-        {children}
-      </h2>
-    </div>
-  );
-}
-```
-
-- [ ] **Step 3: Create Marquee component**
-
-Create `src/components/shared/Marquee.jsx`:
-```jsx
+import { Menu } from "lucide-react";
 import { cn } from "../../lib/utils";
 
-export function Marquee({ items, className, reverse = false }) {
-  const content = items.map((item, i) => (
-    <span key={i} className="flex items-center gap-8 mx-6">
-      <span className="text-xl md:text-3xl font-display font-bold uppercase tracking-wider whitespace-nowrap">
-        {item}
-      </span>
-      <span className="text-accent text-3xl">✽</span>
-    </span>
-  ));
-
+export function Panel({ title, children, className }) {
   return (
-    <div className={cn("overflow-hidden py-6 border-y-brutal bg-foreground text-background", className)}>
-      <div className={cn("flex w-max", reverse ? "animate-marquee-reverse" : "animate-marquee")}>
-        {content}
-        {content}
+    <div className={cn("flex flex-col bg-panelBg border border-borderLine overflow-hidden rounded shadow-sm", className)}>
+      <div className="flex h-7 bg-panelHeader items-center px-3 gap-2 flex-shrink-0 cursor-default border-b border-borderLine">
+        <Menu size={12} className="text-textMuted" />
+        <span className="uppercase text-[11px] font-semibold text-textNormal tracking-wide flex-1">
+          {title}
+        </span>
+      </div>
+      <div className="flex-1 overflow-auto relative">
+        {children}
       </div>
     </div>
   );
 }
 ```
 
-- [ ] **Step 4: Commit**
-
-```bash
-git add src/components/shared/
-git commit -m "feat: build editorial shared components"
-```
-
----
-
-### Task 4: Implement Hero Section (Editorial Layout)
-
-**Files:**
-- Create: `src/components/sections/Hero.jsx`
-
-- [ ] **Step 1: Create Hero component** (Matching the Behance port.JPG style layout)
-
-Create `src/components/sections/Hero.jsx`:
+- [ ] **Step 2: Create MenuBar component**
+Create `src/components/workspace/MenuBar.jsx`:
 ```jsx
-import { motion } from "framer-motion";
-import { PORTFOLIO_DATA } from "../../config";
-
-export function Hero() {
-  const { hero, about } = PORTFOLIO_DATA;
-
+export function MenuBar() {
+  const menus = ["File", "Edit", "Clip", "Sequence", "Markers", "Graphics", "View", "Window", "Help"];
+  
   return (
-    <section className="section-container border-b-brutal min-h-[90vh] flex flex-col justify-center py-20 relative">
-      
-      {/* Top Meta info */}
-      <div className="w-full flex justify-between items-start border-b-brutal pb-6 mb-12">
-        <div>
-          <span className="text-sm font-bold uppercase tracking-widest border-b-2 border-foreground">MY PHILOSOPHY</span>
-          <motion.div
-            initial={{ opacity: 0, rotate: -3 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            transition={{ delay: 0.2, type: "spring" }}
-            className="mt-6"
-          >
-            <h1 className="font-handwriting text-5xl md:text-7xl text-accent leading-none max-w-sm">
-              {hero.slogan}
-            </h1>
-          </motion.div>
-        </div>
-
-        <div className="text-right hidden md:block">
-          <p className="font-display text-2xl font-bold uppercase leading-tight">
-            {hero.roles[0]}<br />
-            {hero.roles[1]}
-          </p>
-          <p className="font-mono text-sm mt-2">{hero.experience}</p>
-        </div>
+    <div className="h-8 bg-appBg flex items-center px-4 gap-4 border-b border-borderLine flex-shrink-0">
+      <div className="font-bold text-accent mr-4 flex items-center gap-2">
+        <span className="w-5 h-5 bg-[#3B1963] text-[#E08FFD] flex items-center justify-center rounded text-xs font-bold border border-[#E08FFD]/30">Pr</span>
+        Trần Văn Dũng
       </div>
-
-      {/* Main Name & Tools */}
-      <div className="flex flex-col md:flex-row gap-12 items-end">
-        <div className="flex-1">
-          <motion.h2 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="font-display text-[4rem] md:text-[7rem] leading-[0.8] uppercase tracking-tighter"
-          >
-            {hero.name}
-          </motion.h2>
-          
-          <div className="mt-12">
-            <span className="text-sm font-bold uppercase tracking-widest block mb-4">SOFTWARE</span>
-            <div className="flex flex-wrap gap-2">
-              {about.tools.map((tool) => (
-                <div 
-                  key={tool.name} 
-                  className="w-12 h-12 flex items-center justify-center font-bold text-xl border-brutal"
-                  style={{ backgroundColor: tool.bg, color: tool.color }}
-                  title={tool.name}
-                >
-                  {tool.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Image (Absolute/Float on MD) */}
-        <motion.div 
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full md:absolute right-8 bottom-0 md:w-1/3 aspect-[3/4] md:aspect-auto md:h-[85%] border-t-brutal border-x-brutal md:border-b-0 border-b-brutal bg-white overflow-hidden"
-        >
-          <img 
-            src={about.avatar} 
-            alt={hero.name}
-            className="w-full h-full object-cover grayscale mix-blend-multiply opacity-90"
-            onError={(e) => {
-               e.target.style.display = 'none';
-               e.target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'bg-gray-200');
-               e.target.parentElement.innerHTML = '<span class="font-mono text-sm">Main Photo</span>';
-            }}
-          />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add src/components/sections/Hero.jsx
-git commit -m "feat: implement brutalist hero section matching design reference"
-```
-
----
-
-### Task 5: Implement About Section
-
-**Files:**
-- Create: `src/components/sections/About.jsx`
-
-- [ ] **Step 1: Create About component (Grid with borders)**
-
-Create `src/components/sections/About.jsx`:
-```jsx
-import { PORTFOLIO_DATA } from "../../config";
-import { SectionHeading } from "../shared/SectionHeading";
-
-export function About() {
-  const { about } = PORTFOLIO_DATA;
-
-  return (
-    <section id="about" className="section-container border-b-brutal pt-24 pb-24">
-      <SectionHeading>{about.title}</SectionHeading>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-brutal bg-white">
-        
-        {/* Left Column: Bio */}
-        <div className="p-8 md:p-12 border-b-brutal md:border-b-0 md:border-r-brutal flex flex-col justify-center">
-          <p className="text-xl md:text-2xl font-bold mb-6 text-accent">
-            {about.greeting}
-          </p>
-          <p className="text-base md:text-lg leading-relaxed font-medium">
-            {about.bio}
-          </p>
-        </div>
-
-        {/* Right Column: Mini stats */}
-        <div className="flex flex-col">
-          <div className="p-8 border-b-brutal flex-1">
-            <h3 className="font-bold uppercase tracking-widest text-sm mb-4">Focus</h3>
-            <div className="flex flex-wrap gap-2">
-              {about.skills.map((skill) => (
-                <span key={skill} className="badge-editorial bg-background">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          <div className="p-8 flex-1">
-            <h3 className="font-bold uppercase tracking-widest text-sm mb-4">Location & Goal</h3>
-            <p className="font-display text-xl font-bold uppercase">{about.education.school}</p>
-            <p className="mt-2 text-sm font-mono text-foreground/60">{about.education.detail}</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-  );
-}
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add src/components/sections/About.jsx
-git commit -m "feat: implement about section with border-boxed editorial layout"
-```
-
----
-
-### Task 6: Implement Projects Section (Showcase Cards)
-
-**Files:**
-- Create: `src/components/sections/Projects.jsx`
-
-- [ ] **Step 1: Create Projects component**
-
-Create `src/components/sections/Projects.jsx`:
-```jsx
-import { PORTFOLIO_DATA } from "../../config";
-import { SectionHeading } from "../shared/SectionHeading";
-
-export function Projects() {
-  const { projects } = PORTFOLIO_DATA;
-
-  return (
-    <section id="projects" className="section-container border-b-brutal pt-24 pb-24">
-      <SectionHeading>SELECTED WORKS</SectionHeading>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        {projects.map((project, index) => (
-          <div key={index} className="flex flex-col group">
-            {/* Thumbnail Box */}
-            <div className="aspect-[4/3] bg-white border-brutal shadow-brutal overflow-hidden mb-6 relative flex items-center justify-center">
-               <span className="text-foreground/20 font-display font-bold text-lg absolute z-0 select-none">
-                 VIDEO PREVIEW
-               </span>
-               {project.videoUrl && (
-                 <iframe
-                    src={project.videoUrl}
-                    className="absolute inset-0 w-full h-full z-10"
-                    allowFullScreen
-                  />
-               )}
-            </div>
-
-            {/* Info */}
-            <div>
-              <div className="flex justify-between items-start">
-                <span className="font-mono text-xs uppercase bg-accent text-white px-2 py-1 border-brutal mb-3 inline-block">
-                  {project.category}
-                </span>
-              </div>
-              <h3 className="font-display text-3xl font-bold uppercase leading-tight mb-2 group-hover:text-accent transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-foreground/80 font-medium leading-snug">
-                {project.description}
-              </p>
-            </div>
-          </div>
+      <div className="flex gap-4">
+        {menus.map(name => (
+          <span key={name} className="text-ui-sm cursor-default hover:text-white transition-colors">
+            {name}
+          </span>
         ))}
       </div>
-    </section>
-  );
-}
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add src/components/sections/Projects.jsx
-git commit -m "feat: implement brutalist video project cards"
-```
-
----
-
-### Task 7: Implement Experience Section (Timeline / List)
-
-**Files:**
-- Create: `src/components/sections/Experience.jsx`
-
-- [ ] **Step 1: Create Experience component**
-
-Create `src/components/sections/Experience.jsx`:
-```jsx
-import { PORTFOLIO_DATA } from "../../config";
-import { SectionHeading } from "../shared/SectionHeading";
-
-export function Experience() {
-  const { experience } = PORTFOLIO_DATA;
-
-  return (
-    <section id="experience" className="section-container border-b-brutal pt-24 pb-24">
-      <SectionHeading>KINH NGHIỆM</SectionHeading>
-
-      <div className="border-brutal bg-white">
-        {experience.map((exp, index) => (
-          <div 
-            key={index} 
-            className={`flex flex-col md:flex-row p-6 md:p-10 hover:bg-foreground hover:text-white transition-colors group ${
-              index !== experience.length - 1 ? 'border-b-brutal' : ''
-            }`}
-          >
-            {/* Year */}
-            <div className="w-full md:w-1/4 mb-4 md:mb-0">
-              <span className="font-mono text-lg font-bold group-hover:text-accent transition-colors">
-                {exp.year}
-              </span>
-            </div>
-
-            {/* Content */}
-            <div className="w-full md:w-3/4">
-              <h3 className="font-display text-2xl md:text-4xl font-bold uppercase leading-tight">
-                {exp.company}
-              </h3>
-              
-              <div className="mt-2 md:mt-4">
-                <p className="text-lg md:text-xl font-bold opacity-80 uppercase tracking-wide">
-                  {exp.role}
-                </p>
-                {exp.subtitle && (
-                  <p className="text-sm font-mono opacity-60 mt-1 uppercase">
-                    {exp.subtitle}
-                  </p>
-                )}
-              </div>
-
-              {exp.description && (
-                <p className="mt-4 font-medium opacity-90 max-w-3xl leading-relaxed">
-                  {exp.description}
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-```
-
-- [ ] **Step 2: Commit**
-
-```bash
-git add src/components/sections/Experience.jsx
-git commit -m "feat: implement brutalist list style for experience"
-```
-
----
-
-### Task 8: Implement Contact & Footer
-
-**Files:**
-- Create: `src/components/sections/Contact.jsx`
-- Create: `src/components/sections/Footer.jsx`
-
-- [ ] **Step 1: Create Contact component**
-
-Create `src/components/sections/Contact.jsx`:
-```jsx
-import { PORTFOLIO_DATA } from "../../config";
-
-export function Contact() {
-  const { contact } = PORTFOLIO_DATA;
-
-  return (
-    <section id="contact" className="section-container pt-32 pb-20 text-center">
-      <div className="border-brutal bg-white p-12 md:p-24 shadow-brutal">
-        <h2 className="font-display text-6xl md:text-[8rem] font-bold uppercase leading-[0.8] tracking-tighter hover:text-accent transition-colors cursor-default">
-          {contact.heading} <br/> {contact.subheading}
-        </h2>
-        
-        <div className="mt-16 flex flex-col md:flex-row justify-center items-center gap-6">
-          <a href={`mailto:${contact.email}`} className="px-8 py-4 bg-foreground text-background font-bold uppercase tracking-widest border-brutal hover:bg-accent transition-colors">
-            EMAIL ME
-          </a>
-          <a href={contact.facebook} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-foreground font-bold uppercase tracking-widest border-brutal hover:bg-background transition-colors shadow-brutal">
-            FACEBOOK
-          </a>
-        </div>
-
-        <div className="mt-12 font-mono font-bold text-xl">
-          {contact.phone}
-        </div>
-      </div>
-    </section>
-  );
-}
-```
-
-- [ ] **Step 2: Create Footer component**
-
-Create `src/components/sections/Footer.jsx`:
-```jsx
-export function Footer() {
-  return (
-    <footer className="border-t-brutal border-x-brutal max-w-7xl mx-auto bg-foreground text-background px-8 py-6">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="font-display font-bold text-2xl uppercase">
-          Trần Văn Dũng.
-        </div>
-        <div className="font-mono text-sm opacity-60">
-          © 2026. Make everything looks interesting.
-        </div>
-      </div>
-    </footer>
+    </div>
   );
 }
 ```
 
 - [ ] **Step 3: Commit**
-
 ```bash
-git add src/components/sections/Contact.jsx src/components/sections/Footer.jsx
-git commit -m "feat: implement contact box and dark footer"
+git add src/components/
+git commit -m "feat: implement panel and menu bar components"
 ```
 
 ---
 
-### Task 9: Assemble App.jsx
+### Task 4: Project Bin (Left Panel)
 
 **Files:**
+- Create: `src/components/workspace/ProjectBin.jsx`
+
+- [ ] **Step 1: Create ProjectBin component**
+Create `src/components/workspace/ProjectBin.jsx`:
+```jsx
+import { FileVideo, Search, FolderOpen, List } from "lucide-react";
+import { PORTFOLIO_DATA } from "../../config";
+
+export function ProjectBin() {
+  return (
+    <div className="h-full flex flex-col p-2 text-ui-xs">
+      <div className="flex gap-2 mb-3">
+        <div className="flex-1 flex bg-[#1A1A1A] border border-borderLine rounded items-center px-2 py-1">
+          <Search size={12} className="text-textMuted mr-2" />
+          <input type="text" placeholder="Search..." className="bg-transparent outline-none w-full text-white" />
+        </div>
+      </div>
+      
+      <div className="flex bg-[#1E1E1E] px-2 py-1 border-y border-borderLine text-textMuted select-none">
+        <span className="flex-1">Name</span>
+        <span className="w-16">Frame Rate</span>
+        <span className="w-20 hidden md:block">Media Duration</span>
+      </div>
+
+      <div className="flex-1 overflow-y-auto mt-1">
+        {PORTFOLIO_DATA.projects.map(proj => (
+          <div key={proj.id} className="flex px-2 py-1.5 items-center hover:bg-[#343434] cursor-default text-textNormal group transition-colors">
+            <span className="flex-1 flex items-center gap-2 truncate pr-2">
+              <FileVideo size={14} className="text-[#3EA8FF]" />
+              {proj.title}
+            </span>
+            <span className="w-16 font-mono text-textMuted group-hover:text-textNormal">{proj.fps}</span>
+            <span className="w-20 hidden md:flex font-mono text-textMuted group-hover:text-textNormal justify-end">{proj.duration}</span>
+          </div>
+        ))}
+      </div>
+      
+      <div className="h-6 flex items-center justify-between mt-2 pt-2 border-t border-borderLine px-2">
+        <span className="text-textMuted">3 Items</span>
+        <div className="flex gap-2 text-textMuted">
+          <FolderOpen size={14} className="hover:text-white" />
+          <List size={14} className="text-white" />
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Commit**
+```bash
+git add src/components/workspace/ProjectBin.jsx
+git commit -m "feat: implement project bin file explorer"
+```
+
+---
+
+### Task 5: Properties / Info Panel (Right Panel)
+
+**Files:**
+- Create: `src/components/workspace/Properties.jsx`
+
+- [ ] **Step 1: Create Properties component (Lumetri-style sliders)**
+Create `src/components/workspace/Properties.jsx`:
+```jsx
+import { PORTFOLIO_DATA } from "../../config";
+import { ChevronDown, Mail, Phone, ExternalLink } from "lucide-react";
+
+function PropGroup({ title, children }) {
+  return (
+    <div className="border-b border-borderLine">
+      <div className="flex items-center px-3 py-1.5 bg-[#2A2A2A] hover:bg-[#333] cursor-default select-none border-b border-borderLine">
+        <ChevronDown size={14} className="text-textMuted mr-1" />
+        <span className="font-bold text-white uppercase text-[10px] tracking-wider">{title}</span>
+      </div>
+      <div className="p-3 text-ui-sm">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export function Properties() {
+  const { about, skills, tools, contact } = PORTFOLIO_DATA;
+
+  return (
+    <div className="h-full flex flex-col overflow-y-auto">
+      <PropGroup title="Basic Info">
+        <div className="flex gap-4 items-center">
+          <div className="w-16 h-16 rounded-full border-2 border-accent overflow-hidden bg-[#111] flex-shrink-0">
+             <img src={about.avatar} alt="Profile" className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <h3 className="font-bold text-white text-base">{about.name}</h3>
+            <p className="text-accent text-[11px] mb-1">{about.roles.join(" • ")}</p>
+          </div>
+        </div>
+        <p className="mt-3 text-textMuted leading-relaxed">
+          {about.bio}
+        </p>
+      </PropGroup>
+
+      <PropGroup title="Skills Rating">
+        <div className="space-y-3">
+          {skills.map(skill => (
+            <div key={skill.name} className="flex flex-col gap-1">
+              <div className="flex justify-between">
+                <span className="text-textNormal">{skill.name}</span>
+                <span className="text-accent font-mono text-[10px]">{skill.value}.0</span>
+              </div>
+              <div className="relative h-4 bg-[#111] border border-borderLine rounded-full overflow-hidden flex items-center px-1">
+                 <div className="h-1.5 bg-[#111] w-full rounded-full absolute inset-0 m-auto mx-1" />
+                 <div 
+                   className="h-2 bg-textNormal rounded-full absolute" 
+                   style={{ left: `2px`, right: `${100 - skill.value}%` }} 
+                 />
+                 <div 
+                   className="w-3 h-3 bg-white rounded-full absolute shadow shadow-black z-10"
+                   style={{ left: `calc(${skill.value}% - 6px)` }}
+                 />
+              </div>
+            </div>
+          ))}
+        </div>
+      </PropGroup>
+
+      <PropGroup title="Tools (Color Match)">
+        <div className="flex flex-wrap gap-2">
+           {tools.map(tool => (
+             <div key={tool.name} className="flex flex-col items-center p-1.5 bg-[#1E1E1E] rounded border border-borderLine w-[45px]">
+               <span className="text-sm font-bold" style={{ color: tool.color }}>{tool.short}</span>
+               <span className="text-[8px] mt-1 uppercase text-textMuted">{tool.ext}</span>
+             </div>
+           ))}
+        </div>
+      </PropGroup>
+
+      <PropGroup title="Contact Data">
+        <div className="space-y-2">
+          <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-white transition-colors bg-[#1E1E1E] p-2 rounded border border-borderLine">
+            <Mail size={12} className="text-accent" /> {contact.email}
+          </a>
+          <a href={`tel:${contact.phone}`} className="flex items-center gap-2 hover:text-white transition-colors bg-[#1E1E1E] p-2 rounded border border-borderLine">
+            <Phone size={12} className="text-accent" /> {contact.phone}
+          </a>
+          <a href={contact.fb} target="_blank" className="flex items-center gap-2 hover:text-white transition-colors bg-[#1E1E1E] p-2 rounded border border-borderLine">
+            <ExternalLink size={12} className="text-accent" /> facebook/{contact.fb}
+          </a>
+        </div>
+      </PropGroup>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Commit**
+```bash
+git add src/components/workspace/Properties.jsx
+git commit -m "feat: implement lumetri style properties panel"
+```
+
+---
+
+### Task 6: Program Monitor (Center Top)
+
+**Files:**
+- Create: `src/components/workspace/ProgramMonitor.jsx`
+
+- [ ] **Step 1: Create ProgramMonitor component**
+Create `src/components/workspace/ProgramMonitor.jsx`:
+```jsx
+import { Play, Pause, SkipBack, StepBack, StepForward, SkipForward } from "lucide-react";
+
+export function ProgramMonitor({ activeProjectTitle = "Portfolio Intro Sequence" }) {
+  return (
+    <div className="h-full flex flex-col relative w-full items-center bg-[#0F0F0F]">
+      
+      {/* Viewport Frame */}
+      <div className="flex-1 w-full p-4 flex items-center justify-center">
+        <div className="w-full h-full max-w-4xl max-h-full bg-black border border-borderLine relative flex items-center justify-center overflow-hidden aspect-video shadow-lg">
+          
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-black opacity-40"></div>
+          
+          <div className="z-10 text-center uppercase">
+            <h1 className="font-display font-bold text-3xl md:text-5xl text-white tracking-widest leading-relaxed">
+              Trần Văn Dũng
+            </h1>
+            <p className="font-mono text-accent mt-4 tracking-[0.5em] text-sm hidden md:block">
+              make everything looks interesting
+            </p>
+          </div>
+
+          {/* Fake safe margins */}
+          <div className="absolute inset-[5%] border border-[#ffffff1a] pointer-events-none" />
+          <div className="absolute inset-[10%] border border-[#ffffff1a] pointer-events-none" />
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="h-14 w-full bg-[#1A1A1A] border-t border-borderLine flex items-center px-4 justify-between text-textNormal">
+        <div className="flex items-center gap-3">
+          <span className="text-accent font-mono text-ui-base">00:00:23:14</span>
+          <span className="text-textMuted mx-2">Fit</span>
+        </div>
+        
+        <div className="flex items-center gap-4 text-textMuted">
+          <SkipBack size={16} className="hover:text-white" />
+          <StepBack size={16} className="hover:text-white" />
+          <Play size={24} className="text-white mx-2" />
+          <StepForward size={16} className="hover:text-white" />
+          <SkipForward size={16} className="hover:text-white" />
+        </div>
+
+        <div className="font-mono text-ui-base">
+           00:04:12:00
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Commit**
+```bash
+git add src/components/workspace/ProgramMonitor.jsx
+git commit -m "feat: implement program monitor playback area"
+```
+
+---
+
+### Task 7: Timeline (Bottom Panel)
+
+**Files:**
+- Create: `src/components/workspace/Timeline.jsx`
+
+- [ ] **Step 1: Create Timeline component**
+Create `src/components/workspace/Timeline.jsx`:
+```jsx
+import { PORTFOLIO_DATA } from "../../config";
+import { Eye, Lock, Magnet } from "lucide-react";
+
+export function Timeline() {
+  const { experienceClips } = PORTFOLIO_DATA;
+
+  // Render a specific video track row
+  const renderTrack = (trackNum) => {
+    const clips = experienceClips.filter(c => c.track === trackNum);
+    return (
+      <div key={`v${trackNum}`} className="h-[46px] border-b border-borderLine flex bg-[#1E1E1E]">
+        {/* Track Header */}
+        <div className="w-[120px] md:w-[150px] border-r border-[#303030] bg-[#222] flex-shrink-0 px-2 py-1 flex flex-col justify-center gap-1 z-10 sticky left-0 text-[10px]">
+          <div className="flex justify-between items-center text-textMuted">
+            <span className="font-bold text-ui-base uppercase">V{trackNum}</span>
+            <div className="flex gap-1.5">
+              <Eye size={12} className={trackNum === 1 ? "text-accent" : ""} />
+              <Lock size={12} />
+            </div>
+          </div>
+        </div>
+        {/* Track Content Area */}
+        <div className="flex-1 relative bg-trackBg overflow-hidden">
+          <div className="absolute inset-0 z-0 flex pattern-grid opacity-10"></div>
+          {clips.map(clip => (
+            <div 
+              key={clip.id}
+              className="absolute top-1 bottom-1 rounded-[3px] border border-black/30 px-2 py-0.5 overflow-hidden shadow-inner group hover:brightness-110 transition-all cursor-ew-resize"
+              style={{ left: `${clip.startPos}%`, width: `${clip.width}%`, backgroundColor: clip.color }}
+            >
+              <p className="text-white text-[10px] font-bold truncate leading-tight">{clip.company} ({clip.year})</p>
+              <p className="text-white/70 text-[9px] truncate leading-tight">{clip.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="h-full flex flex-col">
+      {/* Timeline Header features */}
+      <div className="h-6 bg-[#222] border-b border-borderLine flex items-center px-2">
+         <span className="uppercase text-accent font-bold text-[11px] mr-6">Work Experience_Sequence</span>
+         <div className="flex items-center gap-3 text-textMuted">
+            <span className="font-mono text-[10px]">00:00:23:14</span>
+            <Magnet size={12} className="text-accent" />
+         </div>
+      </div>
+
+      {/* Tracks Container */}
+      <div className="flex-1 overflow-x-auto overflow-y-auto relative bg-appBg">
+        {/* Time ruler */}
+        <div className="h-5 flex ml-[120px] md:ml-[150px] sticky top-0 bg-[#222] border-b border-borderLine z-20 overflow-hidden font-mono text-[9px] text-textMuted">
+           {/* Mock tick marks */}
+           {Array.from({length: 20}).map((_,i) => (
+             <div key={i} className="flex-1 border-l border-[#303030] pl-1 relative">
+                00:0{i}:00
+             </div>
+           ))}
+        </div>
+
+        {/* Video Tracks */}
+        {[1, 2, 3, 4].map(renderTrack)}
+
+        {/* Playhead line */}
+        <div className="absolute top-0 bottom-0 w-px bg-red-500 left-[40%] z-30 pointer-events-none">
+          <div className="absolute top-0 left-[-4px] w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-transparent border-t-red-500"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Add timeline grid utility to css**
+Update `src/index.css` by appending:
+```css
+  .pattern-grid {
+    background-image: linear-gradient(to right, #444 1px, transparent 1px);
+    background-size: 20px 100%;
+  }
+```
+
+- [ ] **Step 3: Commit**
+```bash
+git add src/
+git commit -m "feat: implement timeline tracking work experience"
+```
+
+---
+
+### Task 8: Assemble App Layout
+
+**Files:**
+- Create: `src/components/workspace/ToolBar.jsx`
 - Modify: `src/App.jsx`
 
-- [ ] **Step 1: Overwrite App.jsx**
+- [ ] **Step 1: Create minimal ToolBar**
+Create `src/components/workspace/ToolBar.jsx`:
+```jsx
+import { MousePointer2, Scissors, Hand, Type, Grab, ZoomIn } from "lucide-react";
 
+export function ToolBar() {
+  return (
+    <div className="w-[36px] bg-[#222] border-x border-borderLine flex flex-col items-center py-2 gap-3 text-textMuted flex-shrink-0">
+      <MousePointer2 size={16} className="text-accent" />
+      <Grab size={16} className="hover:text-white" />
+      <Scissors size={16} className="hover:text-white" />
+      <Hand size={16} className="hover:text-white" />
+      <ZoomIn size={16} className="hover:text-white" />
+      <Type size={16} className="hover:text-white" />
+    </div>
+  );
+}
+```
+
+- [ ] **Step 2: Assemble Root App Grid**
 Overwrite `src/App.jsx`:
 ```jsx
-import { Hero } from "./components/sections/Hero";
-import { About } from "./components/sections/About";
-import { Projects } from "./components/sections/Projects";
-import { Experience } from "./components/sections/Experience";
-import { Contact } from "./components/sections/Contact";
-import { Footer } from "./components/sections/Footer";
-import { Marquee } from "./components/shared/Marquee";
-import { PORTFOLIO_DATA } from "./config";
+import { Panel } from "./components/ui/Panel";
+import { MenuBar } from "./components/workspace/MenuBar";
+import { ToolBar } from "./components/workspace/ToolBar";
+import { ProjectBin } from "./components/workspace/ProjectBin";
+import { ProgramMonitor } from "./components/workspace/ProgramMonitor";
+import { Properties } from "./components/workspace/Properties";
+import { Timeline } from "./components/workspace/Timeline";
 
 function App() {
   return (
-    <div className="bg-background min-h-screen">
-      {/* 1. Hero */}
-      <Hero />
+    <div className="flex flex-col h-screen w-full bg-appBg">
+      <MenuBar />
+      
+      {/* Main Workspace Area */}
+      <div className="flex-1 flex overflow-hidden p-1 gap-1">
+        
+        {/* Top Half */}
+        <div className="flex-1 flex flex-col gap-1">
+          <div className="flex-1 flex gap-1 h-[60%]">
+            <Panel title="Project: Content" className="w-[20%] min-w-[200px] hidden lg:flex">
+              <ProjectBin />
+            </Panel>
+            
+            <Panel title="Program: Portfolio Overview" className="flex-1">
+              <ProgramMonitor />
+            </Panel>
+            
+            <Panel title="Lumetri Color / Info" className="w-[25%] min-w-[280px] hidden md:flex">
+              <Properties />
+            </Panel>
+          </div>
+          
+          {/* Bottom Half */}
+          <div className="h-[40%] flex gap-1 min-h-[250px]">
+            <ToolBar />
+            <Panel title="Timeline: Work Experience" className="flex-1">
+              <Timeline />
+            </Panel>
+          </div>
+        </div>
 
-      {/* 2. Marquee */}
-      <div className="max-w-7xl mx-auto border-x-brutal">
-        <Marquee items={PORTFOLIO_DATA.marquee.items} />
       </div>
-
-      {/* 3. About */}
-      <About />
-
-      {/* 4. Marquee (Reverse) - using visual break */}
-      <div className="max-w-7xl mx-auto border-x-brutal">
-        <Marquee items={PORTFOLIO_DATA.marquee.items} reverse className="bg-accent text-white" />
-      </div>
-
-      {/* 5. Projects */}
-      <Projects />
-
-      {/* 6. Experience */}
-      <Experience />
-
-      {/* 7. Contact */}
-      <Contact />
-
-      {/* 8. Footer */}
-      <Footer />
     </div>
   );
 }
@@ -834,29 +727,25 @@ function App() {
 export default App;
 ```
 
-- [ ] **Step 2: Clean up unused files**
-
+- [ ] **Step 3: Test and Clean up**
 ```bash
 rm -f src/App.css src/assets/react.svg
-```
-
-- [ ] **Step 3: Run Dev Server**
-
-```bash
 npm run dev
 ```
 
-- [ ] **Step 4: Commit**
+Expected: A full-screen app resembling Adobe Premiere Pro. Left shows projects, center shows "Program Monitor" with portfolio title, right shows sliders for skills and tools info, bottom shows experiences laid out as video tracks.
 
+- [ ] **Step 4: Commit**
 ```bash
 git add .
-git commit -m "feat: assemble app with full editorial layout"
+git commit -m "feat: assemble adobe-style UI grid layout"
 ```
 
 ---
 
-### Task 10: Final Review
-- [ ] Ensure all borders (`border-brutal`) align properly, creating the "structured box" look.
-- [ ] Check responsive behavior on tablet and mobile (the grid columns should stack nicely).
-- [ ] Verify image loading for `/port.JPG`.
-- [ ] Plan complete.
+## Final Review
+Checklist:
+- Ensure grid doesn't break on narrow screens (hidden panels allow it to fallback to a simpler view on mobile, but this concept is mostly a desktop experience).
+- Check standard Premiere dark theme colors (`#242424`, 1px borders, small text).
+- Sliders for skills look like effect controls.
+- Timeline tracks visually map the experience data.
