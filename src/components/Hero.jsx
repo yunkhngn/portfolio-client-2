@@ -22,26 +22,16 @@ export function Hero() {
 
             <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10">
 
-                {/* Top Bar spanning full width of the box */}
-                <div className="lg:col-span-12 w-full flex justify-between items-center p-4 md:p-6 lg:px-12 border-b-brutal bg-background/50">
-                    <div className="flex items-center gap-3 bg-foreground text-background px-4 py-2 border-[2px] border-foreground hover:bg-background hover:text-foreground transition-colors shadow-stack cursor-default">
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                        <span className="font-mono text-xs md:text-sm font-bold uppercase tracking-widest">AVAILABLE TRẦN DŨNG</span>
-                    </div>
-                    <div className="font-display font-black text-xl uppercase tracking-tighter hidden md:block">
-                        VIDEO EDITOR PORTFOLIO
-                    </div>
-                </div>
 
                 {/* Left Column - Photography & Collage */}
-                <div className="lg:col-span-5 relative p-8 md:p-12 lg:p-16 xl:p-20 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
+                <div className="lg:col-span-6 relative p-8 md:p-12 lg:p-16 xl:p-24 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
 
                     {/* Big Center Photo */}
                     <motion.div
                         initial={{ scale: 0.9, opacity: 0, rotate: -5 }}
                         animate={{ scale: 1, opacity: 1, rotate: 2 }}
                         transition={{ duration: 0.8, type: "spring" }}
-                        className="w-[85%] max-w-[500px] aspect-[4/5] bg-foreground p-1 border-brutal shadow-stack z-20 group relative hover:-translate-y-2 transition-transform duration-300"
+                        className="w-[95%] lg:w-[90%] max-w-[700px] aspect-[4/5] bg-foreground p-1 border-brutal shadow-stack z-20 group relative hover:-translate-y-2 transition-transform duration-300"
                     >
                         <div className="w-full h-full border-2 border-background relative overflow-hidden bg-foreground">
                             <AnimatePresence>
@@ -65,13 +55,13 @@ export function Hero() {
                         initial={{ x: -20, opacity: 0, rotate: 10 }}
                         animate={{ x: 0, opacity: 1, rotate: -8 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="absolute bottom-10 left-4 w-1/3 max-w-[200px] aspect-square bg-white p-2 border-brutal shadow-stack z-10"
+                        className="absolute bottom-10 left-4 w-1/3 max-w-[250px] aspect-square bg-white p-2 border-brutal shadow-stack z-10"
                     >
                         <img src={hero.photos[2]} className="w-full h-full object-cover opacity-50" />
                     </motion.div>
 
                     {/* Spinning Stamp */}
-                    <div className="absolute bottom-12 right-12 z-30 scale-125 lg:scale-150 transform-origin-bottom-right">
+                    <div className="absolute bottom-12 right-12 z-30 scale-125 lg:scale-150 xl:scale-[1.75] transform-origin-bottom-right">
                         <div className="relative w-24 h-24">
                             <svg className="animate-spin-slow w-full h-full" viewBox="0 0 100 100">
                                 <path id="curve" fill="transparent" d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
@@ -86,7 +76,7 @@ export function Hero() {
                 </div>
 
                 {/* Right Column - Typography & Details */}
-                <div className="lg:col-span-7 flex flex-col justify-between">
+                <div className="lg:col-span-6 flex flex-col justify-between">
 
                     {/* Typography Area */}
                     <div className="p-8 md:p-12 lg:p-16 xl:p-24 flex-1 flex flex-col justify-center">
@@ -129,7 +119,7 @@ export function Hero() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 1, type: "spring" }}
-                    className="absolute -bottom-8 -right-8 lg:bottom-12 lg:-right-8 w-16 h-16 bg-accent border-brutal rounded-full flex items-center justify-center text-white shadow-stack hover:scale-110 transition-transform z-40 hidden md:flex"
+                    className="absolute bottom-12 right-12 w-16 h-16 bg-accent border-brutal rounded-full flex items-center justify-center text-white shadow-stack hover:scale-110 transition-transform z-40 hidden md:flex"
                 >
                     <MoveDown strokeWidth={3} className="animate-bounce" />
                 </motion.a>
