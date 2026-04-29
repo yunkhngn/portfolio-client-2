@@ -1,5 +1,4 @@
 import { PORTFOLIO_DATA } from "../config";
-import { SectionHeading } from "./SectionHeading";
 import { Play, ArrowRight } from "lucide-react";
 
 export function Projects() {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PORTFOLIO_DATA } from "../config";
 import { MoveDown, Play } from "lucide-react";
 
 export function Hero() {
-    const { hero, about } = PORTFOLIO_DATA;
+    const { hero } = PORTFOLIO_DATA;
     const [currentPhotoIdx, setCurrentPhotoIdx] = useState(0);
 
     useEffect(() => {
