@@ -15,7 +15,7 @@ export function Hero() {
     }, [hero.photos.length]);
 
     return (
-        <section className="section-container min-h-[95dvh] relative overflow-hidden bg-background pt-12 pb-12 flex flex-col justify-center">
+        <section className="section-container min-h-[95dvh] relative overflow-hidden bg-background pt-32 pb-32 flex flex-col justify-center">
 
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#111 2px, transparent 2px), linear-gradient(90deg, #111 2px, transparent 2px)', backgroundSize: '64px 64px' }}></div>
