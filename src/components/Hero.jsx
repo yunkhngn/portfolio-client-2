@@ -53,6 +53,7 @@ export function Hero() {
                                         className="w-full h-full object-contain" 
                                         autoPlay 
                                         controls 
+                                        playsInline
                                         onEnded={() => setIsPlaying(false)}
                                     />
                                     <button 
@@ -64,16 +65,6 @@ export function Hero() {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="absolute inset-0 bg-accent/30 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center mix-blend-multiply"></div>
-                                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-50 group-hover:scale-100 duration-300 gap-4">
-                                        <div 
-                                            onClick={() => setIsPlaying(true)}
-                                            className="w-20 h-20 bg-background border-[3px] border-foreground rounded-full flex items-center justify-center cursor-pointer hover:bg-accent hover:text-white transition-colors"
-                                        >
-                                            <Play className="fill-current ml-1 w-8 h-8" />
-                                        </div>
-                                        <span className="font-mono text-xs font-bold text-white bg-foreground px-3 py-1 border-brutal">CLICK TO PLAY REEL</span>
-                                    </div>
                                     <AnimatePresence>
                                         <motion.img
                                             key={currentPhotoIdx}
@@ -82,10 +73,19 @@ export function Hero() {
                                             exit={{ opacity: 0 }}
                                             transition={{ duration: 0.8 }}
                                             src={hero.photos[currentPhotoIdx]}
-                                            className="absolute inset-0 w-full h-full object-cover"
+                                            className="absolute inset-0 w-full h-full object-cover z-0"
                                             alt="Slideshow"
                                         />
                                     </AnimatePresence>
+                                    <div className="absolute inset-0 bg-accent/30 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center mix-blend-multiply pointer-events-none"></div>
+                                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-50 group-hover:scale-100 duration-300 gap-4 cursor-pointer" onClick={() => setIsPlaying(true)}>
+                                        <div 
+                                            className="w-20 h-20 bg-background border-[3px] border-foreground rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors shadow-stack"
+                                        >
+                                            <Play className="fill-current ml-1 w-8 h-8" />
+                                        </div>
+                                        <span className="font-mono text-xs font-bold text-white bg-foreground px-3 py-1 border-brutal">CLICK TO PLAY REEL</span>
+                                    </div>
                                 </>
                             )}
                         </div>
