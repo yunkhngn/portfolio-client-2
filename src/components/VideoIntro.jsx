@@ -1,7 +1,12 @@
-import { Play } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { Play, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { PORTFOLIO_DATA } from "../config";
 
 export function VideoIntro() {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const { hero } = PORTFOLIO_DATA;
+
     return (
         <section className="section-container bg-white border-b-brutal pt-20 pb-32 relative overflow-hidden">
             {/* Decorative background text */}
@@ -24,7 +29,7 @@ export function VideoIntro() {
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="relative border-brutal shadow-brutal aspect-video bg-foreground group cursor-none"
+                    className="relative border-brutal shadow-brutal aspect-video bg-foreground group"
                 >
                     {/* Adobe-style Bounding Box Handles */}
                     <div className="absolute -top-[5px] -left-[5px] w-4 h-4 bg-accent border border-foreground z-30" />
@@ -37,31 +42,66 @@ export function VideoIntro() {
                     <div className="absolute left-1/2 -bottom-[5px] -translate-x-1/2 w-4 h-4 bg-white border border-foreground z-30" />
 
                     {/* Content Area */}
-                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                        {/* Placeholder visual/background */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent mix-blend-overlay z-10" />
+                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
+                        <AnimatePresence mode="wait">
+                            {isPlaying ? (
+                                <motion.div 
+                                    key="video"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 z-50 bg-black flex items-center justify-center"
+                                >
+                                    <video 
+                                        src={hero.video} 
+                                        className="w-full h-full object-contain" 
+                                        autoPlay 
+                                        controls 
+                                        playsInline
+                                        onEnded={() => setIsPlaying(false)}
+                                    />
+                                    <button 
+                                        onClick={() => setIsPlaying(false)}
+                                        className="absolute top-4 right-4 z-[60] bg-accent text-white p-2 border-brutal shadow-stack hover:scale-110 transition-transform"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
+                                </motion.div>
+                            ) : (
+                                <motion.div 
+                                    key="overlay"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    onClick={() => setIsPlaying(true)}
+                                    className="absolute inset-0 z-40 flex flex-col items-center justify-center cursor-pointer group/overlay"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent mix-blend-overlay z-10" />
+                                    
+                                    <div className="flex flex-col items-center relative z-20">
+                                        <motion.div
+                                            whileHover={{ scale: 1.1 }}
+                                            className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-accent border-[4px] border-foreground flex items-center justify-center text-white shadow-stack group-hover/overlay:bg-foreground transition-colors"
+                                        >
+                                            <Play fill="currentColor" className="ml-2 w-12 h-12 md:w-16 md:h-16" />
+                                        </motion.div>
+                                        <p className="mt-6 font-mono font-bold text-white uppercase tracking-[0.5em] text-xs md:text-sm animate-pulse">
+                                            CLICK TO PLAY REEL
+                                        </p>
+                                    </div>
 
-                        <div className="z-20 flex flex-col items-center">
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-accent border-[4px] border-foreground flex items-center justify-center text-white shadow-stack group-hover:bg-foreground transition-colors"
-                            >
-                                <Play fill="currentColor" className="ml-2 w-12 h-12 md:w-16 md:h-16" />
-                            </motion.div>
-                            <p className="mt-6 font-mono font-bold text-white uppercase tracking-[0.5em] text-xs md:text-sm animate-pulse">
-                                CLICK TO PLAY REEL
-                            </p>
-                        </div>
+                                    {/* Top bar info */}
+                                    <div className="absolute top-6 left-6 flex items-center gap-4 z-20">
+                                        <div className="badge-editorial bg-white !py-1">PREVIEW</div>
+                                        <span className="font-mono text-white/50 text-xs uppercase letter-spacing-widest">DUNGD_EDITOR_REEL_FINAL.MP4</span>
+                                    </div>
 
-                        {/* Top bar info */}
-                        <div className="absolute top-6 left-6 flex items-center gap-4 z-20">
-                            <div className="badge-editorial bg-white !py-1">PREVIEW</div>
-                            <span className="font-mono text-white/50 text-xs uppercase letter-spacing-widest">DUNGD_EDITOR_REEL_FINAL.MP4</span>
-                        </div>
-
-                        {/* Safe Areas */}
-                        <div className="absolute inset-8 border border-white/10 pointer-events-none" />
-                        <div className="absolute inset-16 border border-white/5 pointer-events-none" />
+                                    {/* Safe Areas */}
+                                    <div className="absolute inset-8 border border-white/10 pointer-events-none z-20" />
+                                    <div className="absolute inset-16 border border-white/5 pointer-events-none z-20" />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </motion.div>
 

@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PORTFOLIO_DATA } from "../config";
-import { MoveDown, Play } from "lucide-react";
+import { MoveDown } from "lucide-react";
 
 export function Hero() {
     const { hero } = PORTFOLIO_DATA;
     const [currentPhotoIdx, setCurrentPhotoIdx] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        if (isPlaying) return;
         const interval = setInterval(() => {
             setCurrentPhotoIdx((prev) => (prev + 1) % hero.photos.length);
         }, 3000); // switch every 3 seconds
         return () => clearInterval(interval);
-    }, [hero.photos.length, isPlaying]);
+    }, [hero.photos.length]);
 
     return (
         <section className="w-full min-h-[100dvh] relative overflow-hidden bg-white flex flex-col border-b-brutal">
@@ -38,7 +36,7 @@ export function Hero() {
                 {/* Left Column - Photography & Collage */}
                 <div className="lg:col-span-5 relative p-8 md:p-12 lg:p-16 xl:p-20 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
 
-                    {/* Big Center Photo / Video Player */}
+                    {/* Big Center Photo */}
                     <motion.div
                         initial={{ scale: 0.9, opacity: 0, rotate: -5 }}
                         animate={{ scale: 1, opacity: 1, rotate: 2 }}
@@ -46,50 +44,20 @@ export function Hero() {
                         className="w-[85%] max-w-[500px] aspect-[4/5] bg-foreground p-1 border-brutal shadow-stack z-20 group relative hover:-translate-y-2 transition-transform duration-300"
                     >
                         <div className="w-full h-full border-2 border-background relative overflow-hidden bg-foreground">
-                            {isPlaying ? (
-                                <div className="absolute inset-0 z-30 bg-foreground">
-                                    <video
-                                        src={hero.video}
-                                        className="w-full h-full object-contain"
-                                        autoPlay
-                                        controls
-                                        playsInline
-                                        onEnded={() => setIsPlaying(false)}
-                                    />
-                                    <button
-                                        onClick={() => setIsPlaying(false)}
-                                        className="absolute top-4 right-4 z-40 bg-accent text-white px-3 py-1 border-brutal font-mono font-bold text-xs shadow-stack"
-                                    >
-                                        CLOSE [X]
-                                    </button>
-                                </div>
-                            ) : (
-                                <>
-                                    <AnimatePresence>
-                                        <motion.img
-                                            key={currentPhotoIdx}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.8 }}
-                                            src={hero.photos[currentPhotoIdx]}
-                                            className="absolute inset-0 w-full h-full object-cover z-0"
-                                            alt="Slideshow"
-                                        />
-                                    </AnimatePresence>
-                                    <div className="absolute inset-0 bg-accent/30 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center mix-blend-multiply pointer-events-none"></div>
-                                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-50 group-hover:scale-100 duration-300 gap-4 cursor-pointer" onClick={() => setIsPlaying(true)}>
-                                        <div
-                                            className="w-20 h-20 bg-background border-[3px] border-foreground rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors shadow-stack"
-                                        >
-                                            <Play className="fill-current ml-1 w-8 h-8" />
-                                        </div>
-                                        <span className="font-mono text-xs font-bold text-white bg-foreground px-3 py-1 border-brutal">CLICK TO PLAY REEL</span>
-                                    </div>
-                                </>
-                            )}
+                            <AnimatePresence>
+                                <motion.img
+                                    key={currentPhotoIdx}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    src={hero.photos[currentPhotoIdx]}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                    alt="Slideshow"
+                                />
+                            </AnimatePresence>
                         </div>
-                        {!isPlaying && <div className="absolute -top-4 -right-4 w-24 h-6 bg-[#e2e2e2] border-2 border-foreground/20 rotate-[15deg] opacity-80 backdrop-blur-sm shadow-sm"></div>}
+                        <div className="absolute -top-4 -right-4 w-24 h-6 bg-[#e2e2e2] border-2 border-foreground/20 rotate-[15deg] opacity-80 backdrop-blur-sm shadow-sm"></div>
                     </motion.div>
 
                     {/* Secondary Photo Background */}
