@@ -8,7 +8,7 @@ export function Experience() {
         <section id="experience" className="section-container border-b-brutal pt-32 pb-32 bg-white">
 
             <div className="flex border-b-brutal pb-6 mb-16">
-                <h2 className="font-display text-5xl md:text-7xl font-black uppercase tracking-tighter">
+                <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter">
                     EXPERIENCE
                 </h2>
             </div>
@@ -17,7 +17,7 @@ export function Experience() {
                 {experience.map((exp, index) => (
                     <div
                         key={index}
-                        className="flex flex-col lg:flex-row bg-background border-brutal shadow-brutal p-8 md:p-12 hover:bg-foreground hover:text-white transition-all duration-300 group relative overflow-hidden"
+                        className="flex flex-col lg:flex-row bg-background border-brutal shadow-brutal p-6 sm:p-8 md:p-12 hover:bg-foreground hover:text-white transition-all duration-300 group relative overflow-hidden"
                     >
                         {/* Background Accent Hover */}
                         <div className="absolute top-0 right-0 w-full h-full bg-accent -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-0"></div>

@@ -9,9 +9,9 @@ export function Contact() {
             <div className="bg-white text-foreground border-brutal shadow-brutal relative overflow-hidden flex flex-col md:flex-row min-h-[500px]">
                 
                 {/* Left Side: Big Text */}
-                <div className="flex-1 p-8 md:p-16 border-b-brutal md:border-b-0 md:border-r-brutal border-foreground flex flex-col justify-between relative bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
+                <div className="flex-1 p-6 sm:p-8 md:p-16 border-b-brutal md:border-b-0 md:border-r-brutal border-foreground flex flex-col justify-between relative bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
                     
-                    <div className="absolute top-8 right-8 animate-spin-slow opacity-50 hidden sm:block">
+                    <div className="absolute top-6 right-6 md:top-8 md:right-8 animate-spin-slow opacity-50 hidden sm:block">
                         <Star size={64} className="fill-accent text-accent" />
                     </div>
 
@@ -19,7 +19,7 @@ export function Contact() {
                         Got a project?
                     </div>
 
-                    <h2 className="font-display text-5xl sm:text-7xl lg:text-[7rem] font-black uppercase leading-[0.8] tracking-tighter mt-12 mb-12">
+                    <h2 className="font-display text-4xl sm:text-6xl lg:text-[7rem] font-black uppercase leading-[0.85] tracking-tighter mt-10 mb-10 md:mt-12 md:mb-12">
                         {contact.heading} <br />
                         <span className="text-transparent hover:text-accent transition-colors duration-500 cursor-default" style={{ WebkitTextStroke: "2px #E25A27" }}>{contact.subheading}</span>
                     </h2>
@@ -32,25 +32,25 @@ export function Contact() {
                 {/* Right Side: Links */}
                 <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
                     
-                    <a href={`mailto:${contact.email}`} className="flex-1 p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-accent hover:text-white transition-colors relative overflow-hidden">
-                        <ArrowUpRight size={48} strokeWidth={2} className="absolute top-8 right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                        <span className="font-mono text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Send an email</span>
-                        <span className="font-display text-2xl sm:text-3xl font-black uppercase break-all">{contact.email}</span>
+                    <a href={`mailto:${contact.email}`} className="flex-1 p-6 sm:p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-accent hover:text-white transition-colors relative overflow-hidden">
+                        <ArrowUpRight size={40} strokeWidth={2} className="absolute top-6 right-6 md:top-8 md:right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
+                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Send an email</span>
+                        <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase break-all">{contact.email}</span>
                     </a>
 
-                    <a href={contact.facebook} target="_blank" rel="noopener noreferrer" className="flex-1 p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-[#1877F2] hover:text-white transition-colors relative overflow-hidden">
-                        <ArrowUpRight size={48} strokeWidth={2} className="absolute top-8 right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                        <span className="font-mono text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Connect on</span>
-                        <span className="font-display text-2xl sm:text-3xl font-black uppercase">Facebook</span>
+                    <a href={contact.facebook} target="_blank" rel="noopener noreferrer" className="flex-1 p-6 sm:p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-[#1877F2] hover:text-white transition-colors relative overflow-hidden">
+                        <ArrowUpRight size={40} strokeWidth={2} className="absolute top-6 right-6 md:top-8 md:right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
+                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Connect on</span>
+                        <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase">Facebook</span>
                     </a>
 
-                    <div className="p-8 md:p-12 bg-background text-foreground flex flex-col justify-center relative group">
-                        <span className="font-mono text-sm font-bold uppercase tracking-widest opacity-60 mb-2 flex items-center gap-2">
+                    <div className="p-6 sm:p-8 md:p-12 bg-background text-foreground flex flex-col justify-center relative group">
+                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2 flex items-center gap-2">
                             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Call me
                         </span>
                         <div className="flex items-center justify-between gap-4">
-                            <span className="font-display text-2xl sm:text-3xl font-black uppercase tracking-widest truncate">{contact.phone}</span>
-                            <button className="p-3 bg-foreground text-background border-brutal hover:-translate-y-1 hover:bg-accent transition-all shrink-0 shadow-stack" aria-label="Copy phone number">
+                            <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-widest truncate">{contact.phone}</span>
+                            <button className="p-2 sm:p-3 bg-foreground text-background border-brutal hover:-translate-y-1 hover:bg-accent transition-all shrink-0 shadow-stack" aria-label="Copy phone number">
                                 <Copy size={24} />
                             </button>
                         </div>

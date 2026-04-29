@@ -10,13 +10,13 @@ export function VideoIntro() {
     return (
         <section className="section-container bg-white border-b-brutal pt-20 pb-32 relative overflow-hidden">
             {/* Decorative background text */}
-            <div className="absolute top-10 right-[-5%] text-[10rem] font-black text-foreground/5 pointer-events-none select-none uppercase leading-none">
+            <div className="absolute top-10 right-[-5%] text-[5rem] sm:text-[6rem] md:text-[10rem] font-black text-foreground/5 pointer-events-none select-none uppercase leading-none">
                 INTRO REEL
             </div>
 
             <div className="max-w-5xl mx-auto relative z-10">
                 <div className="mb-10 flex items-end justify-between border-b-brutal pb-4">
-                    <h2 className="font-display text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
+                    <h2 className="font-display text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
                         WHO <br /><span className="text-accent underline decoration-4 underline-offset-8">IS DŨNG?</span>
                     </h2>
                     <div className="hidden md:block text-right font-mono font-bold text-sm bg-foreground text-background px-4 py-2 border-brutal">

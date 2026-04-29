@@ -24,7 +24,7 @@ export function Hero() {
 
 
                 {/* Left Column - Photography & Collage */}
-                <div className="lg:col-span-6 relative p-8 md:p-12 lg:p-16 xl:p-24 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
+                <div className="lg:col-span-6 relative p-4 sm:p-8 md:p-12 lg:p-16 xl:p-24 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
 
                     {/* Big Center Photo */}
                     <motion.div
@@ -79,14 +79,14 @@ export function Hero() {
                 <div className="lg:col-span-6 flex flex-col justify-between">
 
                     {/* Typography Area */}
-                    <div className="p-8 md:p-12 lg:p-16 xl:p-24 flex-1 flex flex-col justify-center">
+                    <div className="p-6 sm:p-8 md:p-12 lg:p-16 xl:p-24 flex-1 flex flex-col justify-center">
                         <div className="mb-4">
                             <span className="badge-editorial bg-accent text-white shadow-stack xl:text-lg xl:px-4 xl:py-2">EST. 2026</span>
                         </div>
                         <h1 className="font-display font-black uppercase leading-[0.85] tracking-tighter mb-8 flex flex-col">
-                            <span className="text-[4rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter">TRẦN</span>
-                            <span className="text-[4rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter text-accent -mt-2">VĂN</span>
-                            <span className="text-[5rem] sm:text-[6.5rem] lg:text-[8rem] xl:text-[10rem] 2xl:text-[12rem] text-transparent -mt-4 shadow-text" style={{ WebkitTextStroke: "3px #111111", textShadow: "4px 4px 0px #E25A27" }}>
+                            <span className="text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter">TRẦN</span>
+                            <span className="text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter text-accent -mt-1 sm:-mt-2">VĂN</span>
+                            <span className="text-[4rem] sm:text-[6.5rem] lg:text-[8rem] xl:text-[10rem] 2xl:text-[12rem] text-transparent -mt-2 sm:-mt-4 shadow-text" style={{ WebkitTextStroke: "3px #111111", textShadow: "4px 4px 0px #E25A27" }}>
                                 DŨNG.
                             </span>
                         </h1>
@@ -97,13 +97,13 @@ export function Hero() {
 
                     {/* Footer Info Area */}
                     <div className="grid grid-cols-2 border-t-brutal bg-foreground text-background">
-                        <div className="p-6 md:p-8 xl:p-12 border-r-2 border-background/20 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
+                        <div className="p-4 sm:p-6 md:p-8 xl:p-12 border-r-2 border-background/20 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
                             <span className="font-mono text-xs xl:text-sm font-bold uppercase tracking-widest opacity-60 mb-1 xl:mb-2">ROLE</span>
                             <p className="font-display text-xl md:text-2xl xl:text-4xl font-black uppercase">
                                 {hero.roles[0]}
                             </p>
                         </div>
-                        <div className="p-6 md:p-8 xl:p-12 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
+                        <div className="p-4 sm:p-6 md:p-8 xl:p-12 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
                             <span className="font-mono text-xs xl:text-sm font-bold uppercase tracking-widest opacity-60 mb-1 xl:mb-2">EXPERIENCE</span>
                             <p className="font-display text-xl md:text-2xl xl:text-4xl font-black uppercase text-accent">
                                 {hero.experience}

@@ -23,7 +23,7 @@ function ProjectCard({ project, index }) {
     return (
         <div className="flex flex-col group w-full relative">
             {/* Numbering Badge */}
-            <div className="absolute -left-6 -top-6 w-16 h-16 bg-accent text-white border-brutal flex items-center justify-center font-display text-3xl font-black z-30 shadow-stack group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform">
+            <div className="absolute -left-2 -top-2 md:-left-6 md:-top-6 w-12 h-12 md:w-16 md:h-16 bg-accent text-white border-brutal flex items-center justify-center font-display text-2xl md:text-3xl font-black z-30 shadow-stack group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform">
                 {index + 1}
             </div>
 
@@ -94,7 +94,7 @@ export function Projects() {
         <section id="projects" className="section-container border-b-brutal pt-32 pb-32">
 
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-brutal pb-6 gap-6">
-                <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tighter font-black leading-none m-0">
+                <h2 className="font-display text-5xl sm:text-6xl md:text-8xl uppercase tracking-tighter font-black leading-none m-0">
                     SELECTED <br /><span className="text-transparent" style={{ WebkitTextStroke: "2px #111111" }}>WORKS</span>
                 </h2>
                 <p className="font-mono text-lg font-bold uppercase max-w-xs text-right bg-white p-4 border-brutal shadow-stack">

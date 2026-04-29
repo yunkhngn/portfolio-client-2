@@ -6,7 +6,7 @@ export function Footer() {
                 {/* Huge Text Box */}
                 <div className="flex flex-col md:flex-row justify-between md:items-end mb-20 border-b-[4px] border-background/20 pb-16 gap-8">
                     <div>
-                        <h2 className="font-display font-black text-6xl md:text-[8rem] lg:text-[10rem] leading-[0.8] tracking-tighter uppercase text-white">
+                        <h2 className="font-display font-black text-5xl sm:text-6xl md:text-[8rem] lg:text-[10rem] leading-[0.8] tracking-tighter uppercase text-white">
                             TRẦN VĂN<br />
                             <span className="opacity-50">DŨNG</span><span className="text-accent">.</span>
                         </h2>
