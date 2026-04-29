@@ -50,7 +50,7 @@ export function Hero() {
                                     <Play className="fill-current ml-1 w-6 h-6" />
                                 </div>
                             </div>
-                            <AnimatePresence mode="wait">
+                            <AnimatePresence>
                                 <motion.img
                                     key={currentPhotoIdx}
                                     initial={{ opacity: 0 }}
