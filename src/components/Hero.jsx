@@ -17,12 +17,12 @@ export function Hero() {
     }, [hero.photos.length, isPlaying]);
 
     return (
-        <section className="section-container min-h-[95dvh] relative overflow-hidden bg-background pt-32 pb-32 flex flex-col justify-center">
+        <section className="w-full min-h-[100dvh] relative overflow-hidden bg-background flex flex-col pt-[72px] border-b-brutal">
 
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#111 2px, transparent 2px), linear-gradient(90deg, #111 2px, transparent 2px)', backgroundSize: '64px 64px' }}></div>
 
-            <div className="w-full max-w-[85rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 border-brutal bg-white shadow-[16px_16px_0_0_#111] relative z-10">
+            <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white relative z-10">
 
                 {/* Top Bar spanning full width of the box */}
                 <div className="lg:col-span-12 w-full flex justify-between items-center p-4 md:p-6 border-b-brutal bg-background/50">
