@@ -4,7 +4,7 @@ export const PORTFOLIO_DATA = {
     slogan: "make everything looks interesting",
     roles: ["VIDEO EDITOR", "COLORIST"],
     experience: "4 YEARS EXP",
-    photos: ["/photo/D1.jpg", "/photo/EMS00628.png", "/photo/EMS02482.png"],
+    photos: ["/photo/D1.jpg", "/photo/EMS00628.jpg", "/photo/EMS02482.jpg"],
     video: "/video/intro.mp4",
   },
 
@@ -15,7 +15,7 @@ export const PORTFOLIO_DATA = {
   about: {
     title: "ABOUT ME",
     bio: "Tôi là một Video Editor với 4 năm kinh nghiệm, theo đuổi storytelling điện ảnh, nơi mỗi khung hình, nhịp dựng và âm thanh hòa quyện để dẫn dắt cảm xúc và tạo nên những trải nghiệm thị giác giàu chiều sâu. Tôi đặc biệt có thế mạnh trong việc sản xuất nội dung video cho lĩnh vực Thẩm mỹ và Fitness, nơi hình ảnh không chỉ đẹp mà còn phải truyền tải được cảm xúc và giá trị.",
-    avatar: "/photo/EMS02484.png", 
+    avatar: "/photo/EMS02484.jpg", 
     education: {
       school: "Hà Nội",
       detail: "Sản xuất video Thẩm mỹ & Fitness",
