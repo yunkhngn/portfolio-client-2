@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PORTFOLIO_DATA } from "../config";
-import { Play, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 function ProjectCard({ project, index }) {
     const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
@@ -102,9 +102,12 @@ export function Projects() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-y-24">
+            <div className="flex flex-col gap-16 md:gap-24">
                 {projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} index={index} />
+                    <div key={index} className="flex flex-col gap-16 md:gap-24">
+                        <ProjectCard project={project} index={index} />
+                        {index < projects.length - 1 && <div className="w-full border-b-[3px] border-foreground opacity-20"></div>}
+                    </div>
                 ))}
             </div>
         </section>
