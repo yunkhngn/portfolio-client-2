@@ -5,6 +5,7 @@ export const PORTFOLIO_DATA = {
     roles: ["VIDEO EDITOR", "COLORIST"],
     experience: "4 YEARS EXP",
     photos: ["/photo/D1.jpg", "/photo/EMS00628.png", "/photo/EMS02482.png"],
+    video: "/video/intro.mp4",
   },
 
   marquee: {
