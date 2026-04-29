@@ -40,47 +40,57 @@ export function About() {
                         </div>
                     </div>
 
+                    {/* Experience Section (Horizontal) */}
+                    <div className="p-6 md:p-8 border-b-brutal border-foreground">
+                        <h3 className="font-black uppercase tracking-widest text-sm mb-6 pb-2 border-b-2 border-foreground inline-block">Kinh nghiệm</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                            {experience.map((exp, index) => (
+                                <div key={index} className="flex flex-col group border-l-4 border-accent pl-4">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="font-mono text-[10px] font-bold bg-foreground text-background px-1.5 py-0.5">{exp.year}</span>
+                                        <span className="font-bold text-xs uppercase text-accent truncate">{exp.company}</span>
+                                    </div>
+                                    <span className="font-bold text-sm leading-tight mb-1">{exp.role}</span>
+                                    {exp.description && (
+                                        <p className="text-[11px] opacity-70 leading-tight">{exp.description}</p>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 flex-1">
-                        {/* Experience Section */}
+                        {/* Software Section */}
                         <div className="p-6 md:p-8 border-b-brutal md:border-b-0 md:border-r-brutal border-foreground">
-                            <h3 className="font-black uppercase tracking-widest text-sm mb-4 pb-2 border-b-2 border-foreground inline-block">Kinh nghiệm</h3>
-                            <div className="flex flex-col gap-4">
-                                {experience.map((exp, index) => (
-                                    <div key={index} className="flex flex-col group">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="font-mono text-xs font-bold bg-foreground text-background px-2 py-1">{exp.year}</span>
-                                            <span className="font-bold text-sm uppercase text-accent">{exp.company}</span>
+                            <h3 className="font-black uppercase tracking-widest text-sm mb-4 pb-2 border-b-2 border-foreground inline-block">Phần mềm</h3>
+                            <div className="flex flex-wrap gap-3">
+                                {about.tools.map((tool) => (
+                                    <div key={tool.name} className="flex flex-col items-center gap-1 group">
+                                        <div 
+                                            className={`w-10 h-10 md:w-12 md:h-12 border-brutal flex items-center justify-center font-black text-xs transition-transform group-hover:-translate-y-1 ${tool.name === 'Capcut' ? 'rounded-lg' : ''}`}
+                                            style={{ color: tool.color, backgroundColor: tool.bg, borderColor: tool.color }}
+                                        >
+                                            {tool.name === 'Capcut' ? (
+                                                <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                                                    {/* Simple Capcut-like stylized icon using CSS */}
+                                                    <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+                                                        <div className="w-4 h-4 bg-black rounded-full"></div>
+                                                    </div>
+                                                </div>
+                                            ) : tool.name}
                                         </div>
-                                        <span className="font-bold text-sm">{exp.role}</span>
-                                        {exp.description && (
-                                            <p className="text-sm opacity-80 mt-1">{exp.description}</p>
-                                        )}
+                                        <span className="text-[10px] font-bold uppercase opacity-60">{tool.name}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
-
-                        {/* Software & Info Section */}
-                        <div className="flex flex-col">
-                            <div className="p-6 md:p-8 border-b-brutal border-foreground flex-1">
-                                <h3 className="font-black uppercase tracking-widest text-sm mb-4 pb-2 border-b-2 border-foreground inline-block">Phần mềm</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {about.tools.map((tool) => (
-                                        <span 
-                                            key={tool.name} 
-                                            className="px-3 py-1 font-bold font-mono text-sm border-brutal bg-white hover:-translate-y-1 transition-transform cursor-default"
-                                            style={{ color: tool.color, backgroundColor: tool.bg, borderColor: tool.color }}
-                                        >
-                                            {tool.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                            
-                            <div className="p-6 md:p-8 bg-accent text-white flex flex-col justify-center">
-                                <h3 className="font-black uppercase tracking-widest text-sm mb-2 opacity-80">Based In</h3>
-                                <p className="font-display text-3xl font-black uppercase">{about.education.school}</p>
-                            </div>
+                        
+                        <div className="p-6 md:p-8 bg-accent text-white flex flex-col justify-center">
+                            <h3 className="font-black uppercase tracking-widest text-sm mb-2 opacity-80">Based In</h3>
+                            <p className="font-display text-4xl font-black uppercase tracking-tighter">{about.education.school}</p>
+                            <p className="mt-2 text-[10px] font-bold uppercase border border-white/40 px-2 py-0.5 inline-block self-start opacity-80">
+                                {about.education.detail}
+                            </p>
                         </div>
                     </div>
                 </div>
