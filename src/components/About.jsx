@@ -17,12 +17,12 @@ export function About() {
                 </div>
 
                 {/* Left Column: Big Photo */}
-                <div className="lg:col-span-4 p-6 md:p-8 border-b-brutal lg:border-b-0 lg:border-r-brutal bg-background flex flex-col items-center justify-center relative inner-shadow">
-                    <div className="w-full aspect-[3/4] max-w-[280px] border-brutal bg-white p-4 shadow-brutal rotate-3 hover:rotate-0 transition-all duration-300">
-                        <div className="w-full h-full border-2 border-foreground overflow-hidden relative">
-                            <img src={about.avatar} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                <div className="lg:col-span-4 p-4 md:p-8 border-b-brutal lg:border-b-0 lg:border-r-brutal bg-background flex flex-col items-center justify-center relative inner-shadow">
+                    <div className="w-full aspect-[3/4] max-w-[380px] border-brutal bg-white p-4 shadow-brutal rotate-3 hover:rotate-0 transition-all duration-300">
+                        <div className="w-full h-full border-2 border-foreground overflow-hidden relative bg-foreground/5">
+                            <img src={about.avatar} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
                         </div>
-                        <p className="font-handwriting text-2xl text-center mt-3 font-bold">That's Me!</p>
+                        <p className="font-handwriting text-2xl md:text-3xl text-center mt-4 font-bold">That's Me!</p>
                     </div>
                 </div>
 
@@ -43,16 +43,16 @@ export function About() {
                     {/* Experience Section (Horizontal) */}
                     <div className="p-6 md:p-8 border-b-brutal border-foreground">
                         <h3 className="font-black uppercase tracking-widest text-sm mb-6 pb-2 border-b-2 border-foreground inline-block">Kinh nghiệm</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div className="flex flex-col gap-6">
                             {experience.map((exp, index) => (
                                 <div key={index} className="flex flex-col group border-l-4 border-accent pl-4">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <span className="font-mono text-[10px] font-bold bg-foreground text-background px-1.5 py-0.5">{exp.year}</span>
-                                        <span className="font-bold text-xs uppercase text-accent truncate">{exp.company}</span>
+                                    <div className="flex items-center gap-3 mb-1">
+                                        <span className="font-mono text-xs font-bold bg-foreground text-background px-2 py-0.5 whitespace-nowrap">{exp.year}</span>
+                                        <span className="font-bold text-sm uppercase text-accent">{exp.company}</span>
                                     </div>
-                                    <span className="font-bold text-sm leading-tight mb-1">{exp.role}</span>
+                                    <span className="font-bold text-base leading-tight mb-1">{exp.role}</span>
                                     {exp.description && (
-                                        <p className="text-[11px] opacity-70 leading-tight">{exp.description}</p>
+                                        <p className="text-sm opacity-80 leading-snug max-w-3xl">{exp.description}</p>
                                     )}
                                 </div>
                             ))}
@@ -63,23 +63,18 @@ export function About() {
                         {/* Software Section */}
                         <div className="p-6 md:p-8 border-b-brutal md:border-b-0 md:border-r-brutal border-foreground">
                             <h3 className="font-black uppercase tracking-widest text-sm mb-4 pb-2 border-b-2 border-foreground inline-block">Phần mềm</h3>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-4">
                                 {about.tools.map((tool) => (
                                     <div key={tool.name} className="flex flex-col items-center gap-1 group">
                                         <div 
-                                            className={`w-10 h-10 md:w-12 md:h-12 border-brutal flex items-center justify-center font-black text-xs transition-transform group-hover:-translate-y-1 ${tool.name === 'Capcut' ? 'rounded-lg' : ''}`}
-                                            style={{ color: tool.color, backgroundColor: tool.bg, borderColor: tool.color }}
+                                            className={`w-12 h-12 md:w-14 md:h-14 border-brutal flex items-center justify-center font-black text-sm transition-transform group-hover:-translate-y-1 ${tool.name === 'Capcut' ? 'bg-white p-1' : ''}`}
+                                            style={tool.name !== 'Capcut' ? { color: tool.color, backgroundColor: tool.bg, borderColor: tool.color } : {}}
                                         >
                                             {tool.name === 'Capcut' ? (
-                                                <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-                                                    {/* Simple Capcut-like stylized icon using CSS */}
-                                                    <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
-                                                        <div className="w-4 h-4 bg-black rounded-full"></div>
-                                                    </div>
-                                                </div>
+                                                <img src="/photo/capcut.svg" alt="Capcut" className="w-full h-full object-contain" />
                                             ) : tool.name}
                                         </div>
-                                        <span className="text-[10px] font-bold uppercase opacity-60">{tool.name}</span>
+                                        <span className="text-xs font-bold uppercase opacity-60 mt-1">{tool.name}</span>
                                     </div>
                                 ))}
                             </div>
