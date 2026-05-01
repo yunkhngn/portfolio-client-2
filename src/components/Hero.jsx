@@ -1,130 +1,153 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { PORTFOLIO_DATA } from "../config";
-import { MoveDown } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { PORTFOLIO_DATA } from '../config';
 
-export function Hero() {
-    const { hero } = PORTFOLIO_DATA;
-    const [currentPhotoIdx, setCurrentPhotoIdx] = useState(0);
+const BoundingBox = ({ className }) => (
+    <div className={`border-[1.5px] border-accent pointer-events-none z-0 ${className}`}>
+        <div className="absolute -top-[4px] -left-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent" />
+        <div className="absolute -top-[4px] -right-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent" />
+        <div className="absolute -bottom-[4px] -left-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent" />
+        <div className="absolute -bottom-[4px] -right-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent" />
+        <div className="absolute top-1/2 -left-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-y-1/2 hidden sm:block" />
+        <div className="absolute top-1/2 -right-[4px] w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-y-1/2 hidden sm:block" />
+        <div className="absolute -top-[4px] left-1/2 w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-x-1/2 hidden sm:block" />
+        <div className="absolute -bottom-[4px] left-1/2 w-[7px] h-[7px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-x-1/2 hidden sm:block" />
+    </div>
+);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentPhotoIdx((prev) => (prev + 1) % hero.photos.length);
-        }, 3000); // switch every 3 seconds
-        return () => clearInterval(interval);
-    }, [hero.photos.length]);
-
+export const Hero = () => {
     return (
-        <section className="w-full min-h-[100dvh] relative overflow-hidden bg-white flex flex-col border-b-brutal">
+        <section className="w-full min-h-[100dvh] bg-[#f1f1f1] relative flex items-center justify-center overflow-hidden font-display p-4 md:p-8 select-none border-b-brutal">
 
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#111 2px, transparent 2px), linear-gradient(90deg, #111 2px, transparent 2px)', backgroundSize: '64px 64px' }}></div>
+            {/* The main scalable container */}
+            <div className="relative w-full max-w-[1400px] h-full min-h-[600px] flex items-center justify-center">
 
-            <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10">
+                {/* --- BACKGROUND VECTOR ELEMENTS --- */}
+                {/* Bezier Curve (Top Left-ish) */}
+                <div className="absolute top-[12%] left-[18%] w-[280px] h-[100px] hidden lg:block z-0 opacity-80">
+                    <svg width="100%" height="100%" viewBox="0 0 300 100" className="overflow-visible">
+                        <path d="M 20 80 Q 80 10 150 50 T 280 20" fill="none" stroke="#E25A27" strokeWidth="1.5" />
+                        <rect x="16" y="76" width="8" height="8" fill="#f1f1f1" stroke="#E25A27" strokeWidth="1.5" />
+                        <rect x="146" y="46" width="8" height="8" fill="#f1f1f1" stroke="#E25A27" strokeWidth="1.5" />
+                        <rect x="276" y="16" width="8" height="8" fill="#f1f1f1" stroke="#E25A27" strokeWidth="1.5" />
+                        <g transform="translate(285, -20) rotate(30) scale(1.2)">
+                            <polygon points="12,24 8,10 12,0 16,10" fill="#222" />
+                            <circle cx="12" cy="14" r="2" fill="#f1f1f1" />
+                            <rect x="11.5" y="14" width="1" height="10" fill="#f1f1f1" />
+                        </g>
+                    </svg>
+                </div>
 
-
-                {/* Left Column - Photography & Collage */}
-                <div className="lg:col-span-6 relative p-4 sm:p-8 md:p-12 lg:p-16 xl:p-24 border-b-brutal lg:border-b-0 lg:border-r-brutal flex flex-col items-center justify-center min-h-[500px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
-
-                    {/* Big Center Photo */}
-                    <motion.div
-                        initial={{ scale: 0.9, opacity: 0, rotate: -5 }}
-                        animate={{ scale: 1, opacity: 1, rotate: 2 }}
-                        transition={{ duration: 0.8, type: "spring" }}
-                        className="w-[95%] lg:w-[90%] max-w-[700px] aspect-[4/5] bg-foreground p-1 border-brutal shadow-stack z-20 group relative hover:-translate-y-2 transition-transform duration-300"
-                    >
-                        <div className="w-full h-full border-2 border-background relative overflow-hidden bg-foreground">
-                            <AnimatePresence>
-                                <motion.img
-                                    key={currentPhotoIdx}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.8 }}
-                                    src={hero.photos[currentPhotoIdx]}
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    alt="Slideshow"
-                                />
-                            </AnimatePresence>
-                        </div>
-                        <div className="absolute -top-4 -right-4 w-24 h-6 bg-[#e2e2e2] border-2 border-foreground/20 rotate-[15deg] opacity-80 backdrop-blur-sm shadow-sm"></div>
-                    </motion.div>
-
-                    {/* Secondary Photo Background */}
-                    <motion.div
-                        initial={{ x: -20, opacity: 0, rotate: 10 }}
-                        animate={{ x: 0, opacity: 1, rotate: -8 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="absolute bottom-10 left-4 w-1/3 max-w-[250px] aspect-square bg-white p-2 border-brutal shadow-stack z-10"
-                    >
-                        <img src={hero.photos[2]} className="w-full h-full object-cover opacity-50" />
-                    </motion.div>
-
-                    {/* Spinning Stamp */}
-                    <div className="absolute bottom-12 right-12 z-30 scale-125 lg:scale-150 xl:scale-[1.75] transform-origin-bottom-right">
-                        <div className="relative w-24 h-24">
-                            <svg className="animate-spin-slow w-full h-full" viewBox="0 0 100 100">
-                                <path id="curve" fill="transparent" d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
-                                <text width="500" className="text-[12px] font-bold font-mono tracking-widest fill-foreground">
-                                    <textPath href="#curve">
-                                        VIDEO EDITOR • COLOR GRADING •
-                                    </textPath>
-                                </text>
-                            </svg>
-                        </div>
+                {/* Top Left Icons */}
+                <div className="absolute top-[10%] lg:top-[15%] left-[5%] lg:left-[10%] flex gap-3 z-10 scale-90 lg:scale-100">
+                    <div className="w-14 h-14 bg-[#222] rounded-xl flex items-center justify-center text-white font-sans font-bold text-2xl tracking-tighter shadow-sm">
+                        Pr
+                    </div>
+                    <div className="w-14 h-14 bg-[#222] rounded-xl flex items-center justify-center text-white font-sans font-bold text-2xl tracking-tighter shadow-sm">
+                        Ae
                     </div>
                 </div>
 
-                {/* Right Column - Typography & Details */}
-                <div className="lg:col-span-6 flex flex-col justify-between">
+                {/* Top Right Badge */}
+                <div className="absolute top-[12%] lg:top-[18%] right-[5%] lg:right-[15%] bg-[#E25A27] text-white font-bold text-3xl lg:text-4xl px-4 py-1 z-10 tracking-widest shadow-sm">
+                    #24
+                </div>
 
-                    {/* Typography Area */}
-                    <div className="p-6 sm:p-8 md:p-12 lg:p-16 xl:p-24 flex-1 flex flex-col justify-center">
-                        <div className="mb-4">
-                            <span className="badge-editorial bg-accent text-white shadow-stack xl:text-lg xl:px-4 xl:py-2">EST. 2026</span>
-                        </div>
-                        <h1 className="font-display font-black uppercase leading-[0.85] tracking-tighter mb-8 flex flex-col">
-                            <span className="text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter">TRẦN</span>
-                            <span className="text-[3.5rem] sm:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem] tracking-tighter text-accent -mt-1 sm:-mt-2">VĂN</span>
-                            <span className="text-[4rem] sm:text-[6.5rem] lg:text-[8rem] xl:text-[10rem] 2xl:text-[12rem] text-transparent -mt-2 sm:-mt-4 shadow-text" style={{ WebkitTextStroke: "3px #111111", textShadow: "4px 4px 0px #E25A27" }}>
-                                DŨNG.
+
+                {/* --- MAIN CENTER TEXT ("portfolio") --- */}
+                <div className="relative flex items-center text-[12vw] md:text-[140px] lg:text-[180px] xl:text-[220px] font-black text-[#222] leading-none tracking-tighter z-10 w-full justify-center">
+
+                    {/* Block 1: p + o */}
+                    <div className="relative flex items-center">
+                        <BoundingBox className="absolute -inset-y-4 -inset-x-6 md:-inset-x-8" />
+                        <span className="relative z-10">p</span>
+                        {/* Stylized O */}
+                        <svg viewBox="0 0 100 100" className="w-[0.9em] h-[0.9em] inline-block mx-[0.02em] -translate-y-[5%] z-10">
+                            <rect x="0" y="15" width="28" height="28" rx="8" fill="#E25A27" />
+                            <rect x="42" y="25" width="55" height="12" rx="3" fill="#E25A27" />
+                            <path d="M 14 55 v 10 a 36 36 0 0 0 72 0 v -10" fill="none" stroke="#222" strokeWidth="26" strokeLinecap="square" />
+                        </svg>
+
+                        {/* Orange Cursor pointer (Bottom left) */}
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#E25A27" strokeWidth="1.5" strokeLinejoin="round" className="absolute -bottom-10 -left-6 md:-bottom-20 md:-left-12 w-12 h-12 md:w-20 md:h-20 -rotate-12 z-20 drop-shadow-sm">
+                            <path d="M4 2v20l5-5 4 8 3-1-4-8 7-2z" fill="#f1f1f1" strokeWidth="1.5" />
+                        </svg>
+                    </div>
+
+                    {/* Block 2: rt */}
+                    <div className="relative z-10 ml-2 md:ml-4">rt</div>
+
+                    {/* Block 3: f (script) */}
+                    <div className="relative z-10 mx-1 md:mx-2">
+                        <span className="opacity-0">f</span>
+                        <span className="absolute top-1/2 left-1/2 -translate-x-[45%] -translate-y-[55%] text-[#E25A27] font-handwriting text-[2em] z-30 -rotate-[8deg] drop-shadow-sm pointer-events-none">
+                            f
+                        </span>
+                    </div>
+
+                    {/* Block 4: olio */}
+                    <div className="relative flex items-center">
+                        <BoundingBox className="absolute -inset-y-4 -left-4 -right-4 md:-left-6 md:-right-6" />
+                        <span className="relative z-10">olio</span>
+                    </div>
+
+                </div>
+
+
+                {/* --- BOTTOM ELEMENTS --- */}
+
+                {/* Bottom Left Fonts */}
+                <div className="absolute bottom-[10%] left-[5%] lg:left-[10%] flex flex-col font-display text-[9px] md:text-sm font-bold uppercase tracking-widest text-[#222] z-10">
+                    <span>OUTFIT</span>
+                    <span>CAVEAT SCRIPT</span>
+                </div>
+
+                {/* Bottom Center Palette */}
+                <div className="absolute bottom-[8%] left-[30%] lg:bottom-[15%] lg:left-[35%] flex items-center gap-2 md:gap-4 z-10 scale-75 md:scale-100">
+                    <div className="text-[10px] md:text-xs font-bold uppercase leading-tight text-right text-[#222]">
+                        Color<br />Palette
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5 md:gap-2">
+                        <div className="w-5 h-5 md:w-7 md:h-7"></div>
+                        <div className="w-5 h-5 md:w-7 md:h-7 bg-[#D9D9D9] shadow-sm"></div>
+                        <div className="w-5 h-5 md:w-7 md:h-7 bg-[#333333] shadow-sm"></div>
+                        <div className="w-5 h-5 md:w-7 md:h-7 bg-[#E25A27] shadow-sm"></div>
+                    </div>
+                </div>
+
+                {/* Bottom Right Title & Name */}
+                <div className="absolute bottom-[10%] right-[5%] lg:right-[10%] flex flex-col lg:flex-row items-end gap-4 lg:gap-10 z-10 scale-75 lg:scale-100 origin-bottom-right">
+
+                    <div className="relative font-display text-[2rem] lg:text-[3rem] font-bold text-[#E25A27] leading-[0.9] tracking-tighter">
+                        Video<br />
+                        <div className="relative inline-block mt-1">
+                            {/* The outlined "Editor" text with double layer fix for internal overlaps */}
+                            <span className="relative z-10 block text-transparent" style={{ WebkitTextStroke: "3px #E25A27" }}>
+                                Editor
+                                <span className="absolute inset-0 text-[#f1f1f1]" style={{ WebkitTextStroke: "0px" }}>
+                                    Editor
+                                </span>
                             </span>
-                        </h1>
-                        <p className="font-mono text-lg md:text-xl xl:text-2xl font-bold uppercase max-w-lg xl:max-w-xl leading-relaxed border-l-[4px] border-accent pl-4">
-                            "{hero.slogan}"
-                        </p>
+
+                            <BoundingBox className="absolute -inset-1" />
+                            {/* Horizontal extension line */}
+                            <div className="absolute top-1/2 -right-8 lg:-right-12 w-8 lg:w-12 h-[1.5px] bg-accent"></div>
+                            <div className="absolute top-1/2 -right-8 lg:-right-12 w-[6px] h-[6px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-y-1/2 translate-x-1/2"></div>
+
+                            {/* Overlapping script 'signature' */}
+                            <span className="absolute -bottom-6 lg:-bottom-8 right-0 text-[#222] font-handwriting text-5xl lg:text-6xl -rotate-12 pointer-events-none">
+                                d
+                            </span>
+                        </div>
                     </div>
 
-                    {/* Footer Info Area */}
-                    <div className="grid grid-cols-2 border-t-brutal bg-foreground text-background">
-                        <div className="p-4 sm:p-6 md:p-8 xl:p-12 border-r-2 border-background/20 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
-                            <span className="font-mono text-xs xl:text-sm font-bold uppercase tracking-widest opacity-60 mb-1 xl:mb-2">ROLE</span>
-                            <p className="font-display text-xl md:text-2xl xl:text-4xl font-black uppercase">
-                                {hero.roles[0]}
-                            </p>
-                        </div>
-                        <div className="p-4 sm:p-6 md:p-8 xl:p-12 flex flex-col justify-center hover:bg-background hover:text-foreground transition-colors cursor-default">
-                            <span className="font-mono text-xs xl:text-sm font-bold uppercase tracking-widest opacity-60 mb-1 xl:mb-2">EXPERIENCE</span>
-                            <p className="font-display text-xl md:text-2xl xl:text-4xl font-black uppercase text-accent">
-                                {hero.experience}
-                            </p>
-                        </div>
+                    <div className="font-display font-black text-lg lg:text-2xl tracking-widest text-[#222] pb-1 uppercase whitespace-nowrap">
+                        {PORTFOLIO_DATA.hero.name.replace(/\s+/g, '')}
                     </div>
 
                 </div>
-
-                {/* Floating Scroll Down Arrow */}
-                <motion.a
-                    href="#about"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 1, type: "spring" }}
-                    className="absolute bottom-12 right-12 w-16 h-16 bg-accent border-brutal rounded-full flex items-center justify-center text-white shadow-stack hover:scale-110 transition-transform z-40 hidden md:flex"
-                >
-                    <MoveDown strokeWidth={3} className="animate-bounce" />
-                </motion.a>
 
             </div>
         </section>
     );
-}
+};

@@ -13,8 +13,8 @@ export default {
         card: "#FFFFFF",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Space Grotesk", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        display: ["Outfit", "sans-serif"],
         handwriting: ["Caveat", "cursive"],
         mono: ["JetBrains Mono", "monospace"],
       },

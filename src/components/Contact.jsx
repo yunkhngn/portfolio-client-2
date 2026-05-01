@@ -21,7 +21,12 @@ export function Contact() {
 
                     <h2 className="font-display text-4xl sm:text-6xl lg:text-[7rem] font-black uppercase leading-[0.85] tracking-tighter mt-10 mb-10 md:mt-12 md:mb-12">
                         {contact.heading} <br />
-                        <span className="text-transparent hover:text-accent transition-colors duration-500 cursor-default" style={{ WebkitTextStroke: "2px #E25A27" }}>{contact.subheading}</span>
+                        <span className="relative inline-block text-transparent group cursor-default" style={{ WebkitTextStroke: "4px #E25A27" }}>
+                            {contact.subheading}
+                            <span className="absolute inset-0 text-white group-hover:text-accent transition-colors duration-500" style={{ WebkitTextStroke: "0px" }}>
+                                {contact.subheading}
+                            </span>
+                        </span>
                     </h2>
 
                     <p className="font-mono text-lg max-w-md opacity-80 border-l-4 border-accent pl-4">

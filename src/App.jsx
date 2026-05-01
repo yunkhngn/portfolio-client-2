@@ -1,7 +1,6 @@
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
-import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { Marquee } from "./components/Marquee";
@@ -32,9 +31,6 @@ function App() {
 
       {/* 5. Projects */}
       <Projects />
-
-      {/* 6. Experience */}
-      <Experience />
 
       {/* 7. Contact */}
       <Contact />
