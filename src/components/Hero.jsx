@@ -200,7 +200,7 @@ export const Hero = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 2 }}
-                    className="absolute bottom-[8%] left-[30%] lg:bottom-[15%] lg:left-[35%] flex items-center gap-2 md:gap-4 z-10 scale-75 md:scale-100"
+                    className="absolute bottom-[2%] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:bottom-[15%] lg:left-[35%] flex items-center gap-2 md:gap-4 z-10 scale-75 md:scale-100"
                 >
                     <div className="text-[10px] md:text-xs font-bold uppercase leading-tight text-right text-[#222]">
                         Color<br />Palette
