@@ -20,27 +20,44 @@ function ProjectCard({ project, index, onPlayVideo }) {
     const hasVideos = project.videos && project.videos.length > 0;
 
     return (
-        <div className="flex flex-col group w-full relative">
-            {/* Numbering Badge */}
-            <div className="absolute -left-2 -top-2 md:-left-6 md:-top-6 w-12 h-12 md:w-16 md:h-16 bg-accent text-white border-brutal flex items-center justify-center font-display text-2xl md:text-3xl font-black z-30 shadow-stack group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform">
-                {index + 1}
-            </div>
-
-            {/* Info Section */}
-            <div className="px-4 mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 ml-8 md:ml-12">
-                <div>
-                    <span className="font-mono text-xs md:text-sm uppercase bg-white text-foreground px-3 py-1.5 border-brutal font-black inline-block shadow-stack mb-4 group-hover:bg-accent group-hover:text-white transition-colors">
-                        {project.category}
+        <div className="flex flex-col group w-full relative mb-12 md:mb-20">
+            {/* Redesigned Info Section */}
+            <div className="relative mb-6 md:mb-10">
+                {/* Numbering as a decorative background element */}
+                <div className="absolute -left-4 -top-8 md:-left-8 md:-top-12 select-none pointer-events-none opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700">
+                    <span className="font-display text-[100px] md:text-[160px] font-black leading-none">
+                        {(index + 1).toString().padStart(2, '0')}
                     </span>
-                    <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-none group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-4 underline-offset-8">
-                        {project.title}
-                    </h3>
                 </div>
-                {project.description && (
-                    <p className="text-foreground/80 font-bold text-base md:text-lg leading-snug w-full md:w-1/2 md:text-right border-l-4 md:border-l-0 md:border-r-4 border-accent pl-4 md:pr-4 md:pl-0">
-                        {project.description}
-                    </p>
-                )}
+
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 relative z-10 pl-2">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-4 mb-4">
+                            <span className="bg-accent text-white w-10 h-10 md:w-12 md:h-12 border-brutal shadow-[3px_3px_0px_0px_rgba(17,17,17,1)] flex items-center justify-center font-display text-xl md:text-2xl font-black">
+                                {index + 1}
+                            </span>
+                            <span className="font-mono text-[10px] md:text-xs uppercase bg-white text-foreground px-3 py-1 border-brutal font-black tracking-tighter shadow-[3px_3px_0px_0px_rgba(17,17,17,1)] group-hover:bg-foreground group-hover:text-white transition-all duration-300">
+                                {project.category}
+                            </span>
+                        </div>
+                        
+                        <div className="relative inline-block group/title">
+                            <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1] transition-all duration-500 group-hover:translate-x-2">
+                                {project.title}
+                            </h3>
+                            {/* Animated underline */}
+                            <div className="h-2 md:h-3 bg-accent w-0 group-hover:w-full transition-all duration-700 mt-2 shadow-[2px_2px_0px_0px_rgba(17,17,17,1)]"></div>
+                        </div>
+                    </div>
+
+                    {project.description && (
+                        <div className="w-full md:w-1/3 mt-4 md:mt-0">
+                            <p className="text-foreground/70 font-medium text-sm md:text-base leading-relaxed border-l-2 border-accent/30 pl-4 italic">
+                                {project.description}
+                            </p>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Selective Stretch Layout: Longs fill gaps, Shorts stay compact */}
