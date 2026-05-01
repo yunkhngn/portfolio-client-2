@@ -15,7 +15,7 @@ export function VideoIntro() {
             </div>
 
             <div className="w-full max-w-[1400px] mx-auto px-8 md:px-12 xl:px-24 relative z-10">
-                
+
                 {/* Header Section */}
                 <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-[2px] border-[#333] pb-6">
                     <h2 className="font-display text-5xl md:text-7xl font-black text-[#333] tracking-tighter leading-[0.85] m-0">
@@ -54,22 +54,22 @@ export function VideoIntro() {
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
                         <AnimatePresence mode="wait">
                             {isPlaying ? (
-                                <motion.div 
+                                <motion.div
                                     key="video"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     className="absolute inset-0 z-50 bg-black flex items-center justify-center"
                                 >
-                                    <video 
-                                        src={hero.video} 
-                                        className="w-full h-full object-contain" 
-                                        autoPlay 
-                                        controls 
+                                    <video
+                                        src={hero.video}
+                                        className="w-full h-full object-contain"
+                                        autoPlay
+                                        controls
                                         playsInline
                                         onEnded={() => setIsPlaying(false)}
                                     />
-                                    <button 
+                                    <button
                                         onClick={() => setIsPlaying(false)}
                                         className="absolute top-4 right-4 z-[60] bg-[#E25A27] text-white p-2 rounded-sm hover:scale-105 transition-transform"
                                     >
@@ -77,7 +77,7 @@ export function VideoIntro() {
                                     </button>
                                 </motion.div>
                             ) : (
-                                <motion.div 
+                                <motion.div
                                     key="overlay"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -86,7 +86,7 @@ export function VideoIntro() {
                                     className="absolute inset-0 z-40 flex flex-col items-center justify-center cursor-pointer group/overlay"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-tr from-[#E25A27]/10 to-transparent mix-blend-overlay z-10" />
-                                    
+
                                     <div className="flex flex-col items-center relative z-20">
                                         <motion.div
                                             whileHover={{ scale: 1.05 }}
@@ -108,7 +108,7 @@ export function VideoIntro() {
                                     {/* Safe Areas (Camera guides) */}
                                     <div className="absolute inset-4 md:inset-8 border-[0.5px] border-white/20 pointer-events-none z-20" />
                                     <div className="absolute inset-x-12 inset-y-16 border-[0.5px] border-white/10 pointer-events-none z-20 hidden md:block" />
-                                    
+
                                     {/* Center Crosshair */}
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border-[0.5px] border-white/20 pointer-events-none z-20" />
                                 </motion.div>
@@ -121,7 +121,8 @@ export function VideoIntro() {
                 <div className="mt-6 flex flex-col md:flex-row gap-4 w-full">
                     <div className="flex-1 bg-white border border-[#ddd] p-5 rounded-sm">
                         <p className="font-medium text-[#555] text-sm md:text-base leading-relaxed">
-                            "Dẫn dắt cảm xúc người xem qua nhịp dựng và âm thanh điện ảnh. Đây là nơi tôi tổng hợp những sản phẩm tâm đắc nhất."
+                            "Dẫn dắt cảm xúc người xem qua nhịp dựng và âm thanh điện ảnh.
+                            <br />Đây là nơi tôi tổng hợp những sản phẩm tâm đắc nhất."
                         </p>
                     </div>
                     <div className="w-full md:w-[250px] bg-[#E25A27] p-5 flex flex-col justify-center rounded-sm text-center md:text-left">

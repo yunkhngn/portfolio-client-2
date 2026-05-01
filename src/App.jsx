@@ -14,9 +14,7 @@ function App() {
       <Hero />
 
       {/* 2. Marquee */}
-      <div className="max-w-[90rem] mx-auto border-x-brutal">
-        <Marquee items={PORTFOLIO_DATA.marquee.items} />
-      </div>
+      <Marquee items={PORTFOLIO_DATA.marquee.items} />
 
       {/* 3. About */}
       <About />
@@ -25,9 +23,7 @@ function App() {
       <VideoIntro />
 
       {/* 4. Marquee Reverse */}
-      <div className="max-w-[90rem] mx-auto border-x-brutal">
-        <Marquee items={PORTFOLIO_DATA.marquee.items} reverse className="bg-accent text-white" />
-      </div>
+      <Marquee items={PORTFOLIO_DATA.marquee.items} reverse />
 
       {/* 5. Projects */}
       <Projects />

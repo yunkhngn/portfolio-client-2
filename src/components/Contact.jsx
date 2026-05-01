@@ -5,110 +5,135 @@ export function Contact() {
     const { contact } = PORTFOLIO_DATA;
 
     return (
-        <section id="contact" className="py-24 px-4 md:px-8 max-w-[90rem] mx-auto font-sans">
-            {/* The soft, rounded container */}
-            <div className="relative overflow-hidden bg-[#f8f9fa] rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 lg:p-20 border border-gray-100 flex flex-col lg:flex-row gap-12 lg:gap-24 shadow-sm">
+        <section id="contact" className="bg-[#f2f2f2] w-full pt-32 pb-32 select-none font-sans">
+            <div className="w-full max-w-[1400px] mx-auto px-8 md:px-12 xl:px-24">
                 
-                {/* Background glow */}
-                <div className="absolute -top-32 -left-32 w-[30rem] h-[30rem] bg-accent/15 rounded-full blur-[100px] pointer-events-none"></div>
-
-                {/* Left Side: Info */}
-                <div className="flex-1 relative z-10 flex flex-col justify-center">
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-12 tracking-tight">
-                        Get Ready To<br />Create Great
+                {/* Header */}
+                <div className="mb-16 border-b-[2px] border-[#333] pb-6">
+                    <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter font-black leading-[0.85] text-[#333] m-0">
+                        GET READY TO <br />
+                        <span className="text-[#E25A27]">CREATE GREAT</span>
                     </h2>
+                </div>
 
-                    <div className="flex flex-col gap-8">
-                        {/* Email */}
-                        <div className="flex items-center gap-5">
-                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
-                                <Mail size={18} className="text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-xs text-gray-500 mb-1">E-mail:</div>
-                                <a href={`mailto:${contact.email}`} className="text-sm font-medium text-gray-900 hover:text-accent transition-colors">
-                                    {contact.email}
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Location */}
-                        <div className="flex items-center gap-5">
-                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
-                                <MapPin size={18} className="text-accent" />
-                            </div>
-                            <div>
-                                <div className="text-xs text-gray-500 mb-1">Location:</div>
-                                <div className="text-sm font-medium text-gray-900">
-                                    Vietnam
+                <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+                    
+                    {/* Left Side: Info */}
+                    <div className="flex-1 flex flex-col gap-12">
+                        <div className="flex flex-col gap-8">
+                            {/* Email */}
+                            <div className="flex items-start gap-4 border-b border-[#ddd] pb-6">
+                                <div className="w-10 h-10 bg-[#333] flex items-center justify-center shrink-0 rounded-sm">
+                                    <Mail size={18} className="text-white" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest mb-1">E-mail</span>
+                                    <a href={`mailto:${contact.email}`} className="font-bold text-[#333] text-lg hover:text-[#E25A27] transition-colors">
+                                        {contact.email}
+                                    </a>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Phone */}
-                        <div className="flex items-center gap-5">
-                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
-                                <Phone size={18} className="text-accent" />
+                            {/* Location */}
+                            <div className="flex items-start gap-4 border-b border-[#ddd] pb-6">
+                                <div className="w-10 h-10 bg-[#333] flex items-center justify-center shrink-0 rounded-sm">
+                                    <MapPin size={18} className="text-white" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest mb-1">Location</span>
+                                    <span className="font-bold text-[#333] text-lg">
+                                        Vietnam
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-xs text-gray-500 mb-1">Contact:</div>
-                                <div className="text-sm font-medium text-gray-900">
-                                    {contact.phone}
+
+                            {/* Phone */}
+                            <div className="flex items-start gap-4 border-b border-[#ddd] pb-6">
+                                <div className="w-10 h-10 bg-[#333] flex items-center justify-center shrink-0 rounded-sm">
+                                    <Phone size={18} className="text-white" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest mb-1">Contact</span>
+                                    <span className="font-bold text-[#333] text-lg">
+                                        {contact.phone}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Right Side: Form */}
-                <div className="flex-[1.2] relative z-10 flex flex-col justify-center">
-                    <h3 className="text-xs font-bold tracking-widest text-gray-900 uppercase mb-8">
-                        Get in touch
-                    </h3>
+                    {/* Right Side: Form */}
+                    <div className="flex-[1.2]">
+                        <div className="bg-white border border-[#ddd] p-8 md:p-12 relative group rounded-sm shadow-sm">
+                            
+                            {/* Adobe-style corner markers */}
+                            <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#E25A27]/50"></div>
+                            <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#E25A27]/50"></div>
+                            <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#E25A27]/50"></div>
+                            <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#E25A27]/50"></div>
 
-                    <form className="flex flex-col gap-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input 
-                                type="text" 
-                                placeholder="Your Name" 
-                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
-                            />
-                            <input 
-                                type="tel" 
-                                placeholder="Phone Number" 
-                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
-                            />
+                            <div className="mb-8 flex items-center gap-3">
+                                <div className="w-3 h-3 bg-[#E25A27] rounded-sm"></div>
+                                <h3 className="font-mono text-xs font-bold tracking-widest text-[#333] uppercase">
+                                    Get in touch
+                               </h3>
+                            </div>
+
+                            <form className="flex flex-col gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest">Name</label>
+                                        <input 
+                                            type="text" 
+                                            className="w-full px-4 py-3 bg-[#f9f9f9] border border-[#ddd] text-[#333] text-sm focus:outline-none focus:border-[#E25A27] focus:bg-white transition-colors rounded-sm"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest">Phone</label>
+                                        <input 
+                                            type="tel" 
+                                            className="w-full px-4 py-3 bg-[#f9f9f9] border border-[#ddd] text-[#333] text-sm focus:outline-none focus:border-[#E25A27] focus:bg-white transition-colors rounded-sm"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest">Email</label>
+                                        <input 
+                                            type="email" 
+                                            className="w-full px-4 py-3 bg-[#f9f9f9] border border-[#ddd] text-[#333] text-sm focus:outline-none focus:border-[#E25A27] focus:bg-white transition-colors rounded-sm"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest">Subject</label>
+                                        <input 
+                                            type="text" 
+                                            className="w-full px-4 py-3 bg-[#f9f9f9] border border-[#ddd] text-[#333] text-sm focus:outline-none focus:border-[#E25A27] focus:bg-white transition-colors rounded-sm"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="font-mono text-[10px] font-bold text-[#888] uppercase tracking-widest">Message</label>
+                                    <textarea 
+                                        rows={4}
+                                        className="w-full px-4 py-3 bg-[#f9f9f9] border border-[#ddd] text-[#333] text-sm focus:outline-none focus:border-[#E25A27] focus:bg-white transition-colors resize-none rounded-sm"
+                                    ></textarea>
+                                </div>
+
+                                <button 
+                                    type="button"
+                                    className="mt-4 w-full bg-[#E25A27] text-white py-4 font-bold font-mono text-sm uppercase tracking-widest hover:bg-[#333] transition-colors rounded-sm flex items-center justify-center gap-3 group"
+                                >
+                                    APPOINTMENT NOW
+                                    <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                                </button>
+                            </form>
                         </div>
+                    </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input 
-                                type="email" 
-                                placeholder="Your Email" 
-                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
-                            />
-                            <input 
-                                type="text" 
-                                placeholder="Subject" 
-                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
-                            />
-                        </div>
-
-                        <textarea 
-                            placeholder="Your Message" 
-                            rows={5}
-                            className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors resize-none"
-                        ></textarea>
-
-                        <button 
-                            type="button"
-                            className="mt-4 w-full md:w-auto self-start px-8 py-4 bg-accent hover:opacity-90 text-white text-sm font-semibold rounded-full flex items-center justify-center gap-2 transition-opacity group shadow-md"
-                        >
-                            Appointment Now
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </form>
                 </div>
-
             </div>
         </section>
     );

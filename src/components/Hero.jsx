@@ -164,7 +164,7 @@ export const Hero = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 1.5, type: "spring" }}
                             width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#E25A27" strokeWidth="1.5" strokeLinejoin="round"
-                            className="absolute -bottom-10 -left-6 md:-bottom-20 md:-left-12 w-12 h-12 md:w-20 md:h-20 -rotate-12 z-20 drop-shadow-sm"
+                            className="absolute -bottom-10 -left-6 md:-bottom-20 md:-left-12 w-12 h-12 md:w-20 md:h-20 -rotate-12 z-20 drop-shadow-sm overflow-visible"
                         >
                             <path d="M4 2v20l5-5 4 8 3-1-4-8 7-2z" fill="#f1f1f1" strokeWidth="1.5" />
                         </motion.svg>
