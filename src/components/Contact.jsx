@@ -1,67 +1,114 @@
 import { PORTFOLIO_DATA } from "../config";
-import { ArrowUpRight, Copy, Star } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
 
 export function Contact() {
     const { contact } = PORTFOLIO_DATA;
 
     return (
-        <section id="contact" className="section-container py-24 md:py-32">
-            <div className="bg-white text-foreground border-brutal shadow-brutal relative overflow-hidden flex flex-col md:flex-row min-h-[500px]">
+        <section id="contact" className="py-24 px-4 md:px-8 max-w-[90rem] mx-auto font-sans">
+            {/* The soft, rounded container */}
+            <div className="relative overflow-hidden bg-[#f8f9fa] rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 lg:p-20 border border-gray-100 flex flex-col lg:flex-row gap-12 lg:gap-24 shadow-sm">
                 
-                {/* Left Side: Big Text */}
-                <div className="flex-1 p-6 sm:p-8 md:p-16 border-b-brutal md:border-b-0 md:border-r-brutal border-foreground flex flex-col justify-between relative bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
-                    
-                    <div className="absolute top-6 right-6 md:top-8 md:right-8 animate-spin-slow opacity-50 hidden sm:block">
-                        <Star size={64} className="fill-accent text-accent" />
-                    </div>
+                {/* Background glow */}
+                <div className="absolute -top-32 -left-32 w-[30rem] h-[30rem] bg-accent/15 rounded-full blur-[100px] pointer-events-none"></div>
 
-                    <div className="inline-block bg-accent text-white font-mono font-bold px-6 py-2 border-[2px] border-foreground uppercase mb-8 shadow-stack self-start -rotate-2">
-                        Got a project?
-                    </div>
-
-                    <h2 className="font-display text-4xl sm:text-6xl lg:text-[7rem] font-black uppercase leading-[0.85] tracking-tighter mt-10 mb-10 md:mt-12 md:mb-12">
-                        {contact.heading} <br />
-                        <span className="relative inline-block text-transparent group cursor-default" style={{ WebkitTextStroke: "4px #E25A27" }}>
-                            {contact.subheading}
-                            <span className="absolute inset-0 text-white group-hover:text-accent transition-colors duration-500" style={{ WebkitTextStroke: "0px" }}>
-                                {contact.subheading}
-                            </span>
-                        </span>
+                {/* Left Side: Info */}
+                <div className="flex-1 relative z-10 flex flex-col justify-center">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-12 tracking-tight">
+                        Get Ready To<br />Create Great
                     </h2>
 
-                    <p className="font-mono text-lg max-w-md opacity-80 border-l-4 border-accent pl-4">
-                        Sẵn sàng biến ý tưởng của bạn thành những thước phim truyền cảm hứng. Hãy kết nối với tôi!
-                    </p>
-                </div>
+                    <div className="flex flex-col gap-8">
+                        {/* Email */}
+                        <div className="flex items-center gap-5">
+                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                                <Mail size={18} className="text-accent" />
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-500 mb-1">E-mail:</div>
+                                <a href={`mailto:${contact.email}`} className="text-sm font-medium text-gray-900 hover:text-accent transition-colors">
+                                    {contact.email}
+                                </a>
+                            </div>
+                        </div>
 
-                {/* Right Side: Links */}
-                <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
-                    
-                    <a href={`mailto:${contact.email}`} className="flex-1 p-6 sm:p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-accent hover:text-white transition-colors relative overflow-hidden">
-                        <ArrowUpRight size={40} strokeWidth={2} className="absolute top-6 right-6 md:top-8 md:right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Send an email</span>
-                        <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase break-all">{contact.email}</span>
-                    </a>
+                        {/* Location */}
+                        <div className="flex items-center gap-5">
+                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                                <MapPin size={18} className="text-accent" />
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-500 mb-1">Location:</div>
+                                <div className="text-sm font-medium text-gray-900">
+                                    Vietnam
+                                </div>
+                            </div>
+                        </div>
 
-                    <a href={contact.facebook} target="_blank" rel="noopener noreferrer" className="flex-1 p-6 sm:p-8 md:p-12 border-b-brutal border-foreground flex flex-col justify-center group hover:bg-[#1877F2] hover:text-white transition-colors relative overflow-hidden">
-                        <ArrowUpRight size={40} strokeWidth={2} className="absolute top-6 right-6 md:top-8 md:right-8 group-hover:scale-125 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Connect on</span>
-                        <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase">Facebook</span>
-                    </a>
-
-                    <div className="p-6 sm:p-8 md:p-12 bg-background text-foreground flex flex-col justify-center relative group">
-                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest opacity-60 mb-2 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Call me
-                        </span>
-                        <div className="flex items-center justify-between gap-4">
-                            <span className="font-display text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-widest truncate">{contact.phone}</span>
-                            <button className="p-2 sm:p-3 bg-foreground text-background border-brutal hover:-translate-y-1 hover:bg-accent transition-all shrink-0 shadow-stack" aria-label="Copy phone number">
-                                <Copy size={24} />
-                            </button>
+                        {/* Phone */}
+                        <div className="flex items-center gap-5">
+                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-gray-100">
+                                <Phone size={18} className="text-accent" />
+                            </div>
+                            <div>
+                                <div className="text-xs text-gray-500 mb-1">Contact:</div>
+                                <div className="text-sm font-medium text-gray-900">
+                                    {contact.phone}
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
+                {/* Right Side: Form */}
+                <div className="flex-[1.2] relative z-10 flex flex-col justify-center">
+                    <h3 className="text-xs font-bold tracking-widest text-gray-900 uppercase mb-8">
+                        Get in touch
+                    </h3>
+
+                    <form className="flex flex-col gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input 
+                                type="text" 
+                                placeholder="Your Name" 
+                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
+                            />
+                            <input 
+                                type="tel" 
+                                placeholder="Phone Number" 
+                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input 
+                                type="email" 
+                                placeholder="Your Email" 
+                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Subject" 
+                                className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors"
+                            />
+                        </div>
+
+                        <textarea 
+                            placeholder="Your Message" 
+                            rows={5}
+                            className="w-full px-6 py-4 rounded-xl bg-transparent border border-gray-200 text-sm focus:outline-none focus:border-accent focus:bg-white transition-colors resize-none"
+                        ></textarea>
+
+                        <button 
+                            type="button"
+                            className="mt-4 w-full md:w-auto self-start px-8 py-4 bg-accent hover:opacity-90 text-white text-sm font-semibold rounded-full flex items-center justify-center gap-2 transition-opacity group shadow-md"
+                        >
+                            Appointment Now
+                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </section>
     );
