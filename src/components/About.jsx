@@ -28,7 +28,7 @@ export function About() {
                 </div>
             </div>
 
-            <div className="w-full h-full flex relative pt-20 pb-12 px-8 md:px-12 xl:px-24">
+            <div className="w-full h-full flex relative pt-20 pb-12 px-16 md:px-24 xl:px-40">
 
                 {/* --- LEFT COLUMN: CONTENT (55%) --- */}
                 <div className="w-full lg:w-[55%] h-full flex flex-col justify-evenly z-10 relative pr-6 xl:pr-12 py-4">
