@@ -5,6 +5,7 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { Marquee } from "./components/Marquee";
 import { VideoIntro } from "./components/VideoIntro";
+import { WhatIBring } from "./components/WhatIBring";
 import { PORTFOLIO_DATA } from "./config";
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
 
       {/* 5. Projects */}
       <Projects />
+
+      {/* 6. What I Bring */}
+      <WhatIBring />
 
       {/* 7. Contact */}
       <Contact />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PORTFOLIO_DATA } from "../config";
-import { Play, X } from "lucide-react";
+import { Play, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const getYoutubeId = (url) => {
@@ -32,7 +32,7 @@ function ProjectCard({ project, index, onPlayVideo }) {
                                 {project.category}
                             </span>
                         </div>
-                        
+
                         <div className="relative inline-block group/title">
                             <h3 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-[#333] transition-all duration-500 group-hover:translate-x-2">
                                 {project.title}
@@ -64,11 +64,10 @@ function ProjectCard({ project, index, onPlayVideo }) {
                             <div
                                 key={i}
                                 onClick={() => onPlayVideo(video.url)}
-                                className={`relative bg-[#222] overflow-hidden group/item cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-sm border border-[#ddd] ${
-                                    isShort 
-                                        ? 'flex-none w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.666rem)]' 
-                                        : 'flex-1 min-w-[calc(100%)] md:min-w-[calc(50%-0.5rem)]'
-                                }`}
+                                className={`relative bg-[#222] overflow-hidden group/item cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-sm border border-[#ddd] ${isShort
+                                    ? 'flex-none w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.666rem)]'
+                                    : 'flex-1 min-w-[calc(100%)] md:min-w-[calc(50%-0.5rem)]'
+                                    }`}
                             >
                                 <div style={{ aspectRatio: isShort ? '9/16' : '16/9' }} className="w-full relative bg-black">
                                     <img
@@ -77,7 +76,7 @@ function ProjectCard({ project, index, onPlayVideo }) {
                                         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/item:opacity-100 transition-all duration-700 group-hover/item:scale-105"
                                         onError={(e) => { e.target.src = `https://img.youtube.com/vi/${yId}/hqdefault.jpg`; }}
                                     />
-                                    
+
                                     {/* Adobe-style corner markers */}
                                     <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/50 z-20"></div>
                                     <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/50 z-20"></div>
@@ -101,6 +100,21 @@ function ProjectCard({ project, index, onPlayVideo }) {
                     </div>
                 )}
             </div>
+
+            {/* View More Link */}
+            {project.viewMoreLink && (
+                <div className="w-full mt-6 md:mt-8 flex justify-end">
+                    <a
+                        href={project.viewMoreLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 text-[#E25A27] hover:text-[#333] font-mono font-bold text-xs md:text-sm tracking-widest uppercase transition-colors group/link"
+                    >
+                        Xem thêm
+                        <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
+                    </a>
+                </div>
+            )}
         </div>
     );
 }
@@ -112,7 +126,7 @@ export function Projects() {
     return (
         <section id="projects" className="bg-[#f2f2f2] w-full pt-32 pb-32 border-b border-[#ddd] select-none font-sans">
             <div className="w-full max-w-[1400px] mx-auto px-8 md:px-12 xl:px-24">
-                
+
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-[2px] border-[#333] pb-6 gap-6">
                     <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter font-black leading-[0.85] text-[#333] m-0">
                         SELECTED <br />
