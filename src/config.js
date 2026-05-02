@@ -62,7 +62,7 @@ export const PORTFOLIO_DATA = {
       ],
     },
     {
-      title: "Phỏng vấn đường phố (tiktok)",
+      title: "Viral TikTok (1M+ views)",
       category: "TIKTOK",
       description: "",
       videos: [
@@ -101,9 +101,9 @@ export const PORTFOLIO_DATA = {
       ],
     },
     {
-      title: "Các bác sĩ",
+      title: "Beauty Ads",
       category: "BEAUTY",
-      description: "Editor các kênh bác sĩ và kênh chính Show Giá Thẩm Mỹ. Hình ảnh chỉn chu, truyền tải giá trị.",
+      description: "",
       videos: [
         { type: "short", url: "https://www.youtube.com/embed/5sNUE-y1oZ0" },
         { type: "short", url: "https://www.youtube.com/embed/wKKn9rD_6mY" },
@@ -138,6 +138,16 @@ export const PORTFOLIO_DATA = {
       description: "",
       videos: [
         { type: "long", url: "https://www.youtube.com/embed/CBaBDVg9xcg" }
+      ],
+    },
+    {
+      title: "Wedding",
+      category: "WEDDING",
+      description: "",
+      videos: [
+        { type: "long", url: "https://www.youtube.com/embed/GHUJWVeC_LI" },
+        { type: "long", url: "https://www.youtube.com/embed/nPEEShAF8n4" },
+        { type: "long", url: "https://www.youtube.com/embed/J2gBO7JeMRM" }
       ],
     }
   ],

@@ -232,15 +232,15 @@ export const Hero = () => {
                                 </span>
                             </span>
 
-                            <BoundingBox className="absolute -inset-1" />
+                            <BoundingBox className="absolute -left-[30px] -right-[30px] -top-[6px] -bottom-[6px]" />
                             {/* Horizontal extension line */}
-                            <div className="absolute top-1/2 -right-8 lg:-right-12 w-8 lg:w-12 h-[1.5px] bg-accent"></div>
-                            <div className="absolute top-1/2 -right-8 lg:-right-12 w-[6px] h-[6px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-y-1/2 translate-x-1/2"></div>
+                            <div className="absolute top-1/2 -right-[70px] lg:-right-[90px] w-[40px] lg:w-[60px] h-[1.5px] bg-accent"></div>
+                            <div className="absolute top-1/2 -right-[70px] lg:-right-[90px] w-[6px] h-[6px] bg-[#f1f1f1] border-[1.5px] border-accent -translate-y-1/2 translate-x-1/2"></div>
                         </div>
                     </div>
 
-                    <div className="font-display font-black text-lg lg:text-2xl tracking-widest text-[#222] pb-1 uppercase whitespace-nowrap">
-                        {PORTFOLIO_DATA.hero.name.replace(/\s+/g, '')}
+                    <div className="font-display font-black text-lg lg:text-2xl tracking-[0.2em] text-[#222] pb-1 uppercase whitespace-nowrap ml-2 lg:ml-4">
+                        {PORTFOLIO_DATA.hero.name}
                     </div>
 
                 </motion.div>

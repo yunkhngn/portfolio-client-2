@@ -63,9 +63,9 @@ export function About() {
                         <h3 className="text-2xl xl:text-4xl font-display font-black text-[#333] tracking-tighter mb-4">Experience</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                             {experience.slice(0, 4).map((exp, index) => (
-                                <div key={index} className="flex items-start gap-2">
-                                    <span className="font-bold text-[#333] text-sm xl:text-base whitespace-nowrap">{exp.year}</span>
-                                    <span className="text-[#ccc] font-bold text-sm xl:text-base">|</span>
+                                <div key={index} className="flex items-start gap-3">
+                                    <span className="font-bold text-[#333] text-sm xl:text-base whitespace-nowrap w-[130px] xl:w-[150px] shrink-0">{exp.year}</span>
+                                    <span className="text-[#ccc] font-bold text-sm xl:text-base shrink-0">|</span>
                                     <div className="flex flex-col">
                                         <span className="font-bold text-[#333] text-sm xl:text-base leading-tight">{exp.role}</span>
                                         <span className="text-[#777] font-medium text-xs xl:text-sm mt-0.5 leading-tight">{exp.company}</span>
